@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Ligue Régionale GONF{% endblock %}
+
+{% block content %}
+
+<!-- Bandeau logos + texte défilant -->
+<section class="py-3" style="background: var(--lr-soft);">
+    <div class="container-fluid px-3 px-md-5">
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-4 d-flex flex-wrap align-items-center gap-3">
+                <!-- Remplace par tes logos -->
+                <img src="{% static 'img/logo-ligue.png' %}" alt="Ligue" style="height:60px; object-fit:contain;">
+                <img src="{% static 'img/logo-frmf.png' %}" alt="FRMF" style="height:60px; object-fit:contain;">
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="ticker bg-white rounded-pill px-3 py-2">
+                    <span>
+                        ⚽ Prochaine journée : Championnat Régional Seniors – Samedi 20h •
+                        🏆 Finale Coupe Régionale U19 – Dimanche 16h •
+                        📢 Rappel : Date limite de dépôt des licences – 30/11 •
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Grand banner / slider des news -->
+<section class="py-4">
+    <div class="container-fluid px-3 px-md-5">
+        <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner rounded-4 shadow-sm">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row g-0">
+                        <div class="col-12 col-md-7">
+                            <!-- Image de news -->
+                            <div style="height:260px; background:#ccc url('{% static "img/news/news1.jpg" %}') center/cover no-repeat;"></div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center" style="background: var(--lr-primary); color: var(--lr-white);">
+                            <div class="p-4">
+                                <span class="badge bg-light text-dark mb-2">ACTUALITÉ</span>
+                                <h3 class="h4 mb-2">Lancement du nouveau championnat régional</h3>
+                                <p class="mb-3 small">
+                                    La Ligue Régionale GONF annonce le lancement de la nouvelle saison avec un format modernisé et une
+                                    diffusion renforcée des rencontres.
+                                </p>
+                                <a href="#" class="btn btn-sm btn-light rounded-pill">
+                                    Voir la news complète
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="row g-0">
+                        <div class="col-12 col-md-7">
+                            <div style="height:260px; background:#ccc url('{% static "img/news/news2.jpg" %}') center/cover no-repeat;"></div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center" style="background: var(--lr-accent); color: var(--lr-dark);">
+                            <div class="p-4">
+                                <span class="badge bg-dark text-light mb-2">FORMATION</span>
+                                <h3 class="h4 mb-2">Session de formation arbitres & délégués</h3>
+                                <p class="mb-3 small">
+                                    Une nouvelle session de formation est programmée pour renforcer les compétences des officiels de match.
+                                </p>
+                                <a href="#" class="btn btn-sm btn-dark rounded-pill">
+                                    En savoir plus
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-item">
+                    <div class="row g-0">
+                        <div class="col-12 col-md-7">
+                            <div style="height:260px; background:#ccc url('{% static "img/news/news3.jpg" %}') center/cover no-repeat;"></div>
+                        </div>
+                        <div class="col-12 col-md-5 d-flex align-items-center" style="background: var(--lr-soft); color: var(--lr-dark);">
+                            <div class="p-4">
+                                <span class="badge bg-primary mb-2">JEUNES</span>
+                                <h3 class="h4 mb-2">Programme de détection des talents U15</h3>
+                                <p class="mb-3 small">
+                                    La ligue lance un programme de détection dans toutes les préfectures de la région.
+                                </p>
+                                <a href="#" class="btn btn-sm btn-lr-primary rounded-pill">
+                                    Détails du programme
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Grille : annonces / programmes / news / résultats & classement -->
+<section class="pb-4">
+    <div class="container-fluid px-3 px-md-5">
+        <div class="row g-4">
+
+            <!-- Colonne 1 : Annonces & Programmes -->
+            <div class="col-12 col-lg-4">
+                <div class="card-lr mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="section-title mb-0">Annonces</h2>
+                        <a href="#" class="small text-muted">Tout voir</a>
+                    </div>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2">
+                            <strong>[Officiel]</strong> Assemblée générale ordinaire – 15/12/2025
+                        </li>
+                        <li class="mb-2">
+                            <strong>[Note]</strong> Mise à jour des formulaires de licences 2025–2026
+                        </li>
+                        <li class="mb-2">
+                            <strong>[Appel]</strong> Candidature des clubs pour la Coupe Régionale
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-lr">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="section-title mb-0">Programmes</h2>
+                        <a href="#" class="small text-muted">Calendrier complet</a>
+                    </div>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2">
+                            <span class="fw-semibold">Journée 10 – Seniors</span><br>
+                            Samedi 20h – Stade Municipal 1
+                        </li>
+                        <li class="mb-2">
+                            <span class="fw-semibold">U19 – Poule A</span><br>
+                            Dimanche 16h – Centre Technique
+                        </li>
+                        <li class="mb-2">
+                            <span class="fw-semibold">Futsal – Phase Playoffs</span><br>
+                            Vendredi 19h – Salle Omnisports
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Colonne 2 : News -->
+            <div class="col-12 col-lg-4">
+                <div class="card-lr h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="section-title mb-0">Dernières news</h2>
+                        <a href="#" class="small text-muted">Toutes les news</a>
+                    </div>
+                    <div class="d-flex flex-column gap-3 small">
+                        <div class="d-flex gap-3">
+                            <div style="width:80px; height:60px; border-radius:0.75rem; background:#ccc url('{% static "img/news/thumb1.jpg" %}') center/cover;"></div>
+                            <div>
+                                <div class="text-muted mb-1">15 nov 2025</div>
+                                <div class="fw-semibold">Résultats de la 8ème journée Seniors</div>
+                                <div class="text-muted">Retour sur les matchs phares du week-end.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3">
+                            <div style="width:80px; height:60px; border-radius:0.75rem; background:#ccc url('{% static "img/news/thumb2.jpg" %}') center/cover;"></div>
+                            <div>
+                                <div class="text-muted mb-1">12 nov 2025</div>
+                                <div class="fw-semibold">Stage régional des arbitres</div>
+                                <div class="text-muted">Une trentaine d’arbitres réunis pour 3 jours.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3">
+                            <div style="width:80px; height:60px; border-radius:0.75rem; background:#ccc url('{% static "img/news/thumb3.jpg" %}') center/cover;"></div>
+                            <div>
+                                <div class="text-muted mb-1">10 nov 2025</div>
+                                <div class="fw-semibold">Lancement du championnat féminin régional</div>
+                                <div class="text-muted">Une nouvelle étape pour le développement du football féminin.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne 3 : Résultats & Classement -->
+            <div class="col-12 col-lg-4">
+                <div class="card-lr mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="section-title mb-0">Résultats</h2>
+                        <a href="#" class="small text-muted">Tous les résultats</a>
+                    </div>
+                    <table class="table table-sm align-middle mb-0">
+                        <tbody>
+                            <tr>
+                                <td class="small">Club A</td>
+                                <td class="text-center small fw-bold">2 - 1</td>
+                                <td class="small text-end">Club B</td>
+                            </tr>
+                            <tr>
+                                <td class="small">Club C</td>
+                                <td class="text-center small fw-bold">0 - 0</td>
+                                <td class="small text-end">Club D</td>
+                            </tr>
+                            <tr>
+                                <td class="small">Club E</td>
+                                <td class="text-center small fw-bold">3 - 2</td>
+                                <td class="small text-end">Club F</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-lr">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="section-title mb-0">Classement</h2>
+                        <a href="#" class="small text-muted">Classement complet</a>
+                    </div>
+                    <table class="table table-sm mb-0">
+                        <thead>
+                            <tr class="small text-muted">
+                                <th>#</th>
+                                <th>Club</th>
+                                <th class="text-center">Pts</th>
+                                <th class="text-center">J</th>
+                            </tr>
+                        </thead>
+                        <tbody class="small">
+                            <tr>
+                                <td>1</td>
+                                <td>Club A</td>
+                                <td class="text-center fw-bold">22</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Club B</td>
+                                <td class="text-center fw-bold">19</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Club C</td>
+                                <td class="text-center fw-bold">17</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Club D</td>
+                                <td class="text-center fw-bold">15</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
