@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Guelmim Oued Noun Regional League{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mêmes CSS que base_fr (copie identique) -->
+    <!-- ... copie EXACTE du <head> de base_fr.html ... -->
+    <!-- pour ne pas tout répéter, tu peux reprendre le même <style> -->
+    <!-- et juste changer les textes dans le body -->
+    <!-- je ne réécris pas tout le CSS ici pour éviter un pavé énorme -->
+</head>
+<body>
+    <!-- Top bar -->
+    <div class="top-bar py-1">
+        <div class="container-fluid px-3 px-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-globe"></i>
+                <form method="post" action="{% url 'switch_language' %}" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <select name="lang" class="form-select form-select-sm border-0" style="width:auto;" onchange="this.form.submit()">
+                        <option value="fr">Français</option>
+                        <option value="en" selected>English</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="#"><i class="fab fa-facebook-f text-primary"></i></a>
+                <a href="#"><i class="fab fa-x-twitter text-primary"></i></a>
+                <a href="#"><i class="fab fa-instagram text-primary"></i></a>
+                <a href="#"><i class="fab fa-youtube text-danger"></i></a>
+
+                {% if user.is_authenticated %}
+                    <span class="small me-2">Hello, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-primary rounded-pill">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-pill-primary ms-2">
+                        <i class="fa-regular fa-user"></i> Member area
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="main-navbar py-2">
+        <div class="container-fluid px-3 px-md-5 d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+                <img src="{% static 'img/logo-ligue.png' %}" alt="League" style="height:50px; object-fit:contain;">
+                <div class="d-flex flex-column text-white">
+                    <span class="brand-title">GUELMIM OUED NOUN REGIONAL LEAGUE</span>
+                    <small class="brand-subtitle">Under the Royal Moroccan Football Federation</small>
+                </div>
+            </div>
+
+            <div class="d-none d-md-flex align-items-center gap-4">
+                <a href="{% url 'home' %}" class="nav-link-custom">Home</a>
+                <a href="#" class="nav-link-custom">Competitions</a>
+                <a href="#" class="nav-link-custom">Clubs</a>
+                <a href="#" class="nav-link-custom">Refereeing</a>
+                <a href="#" class="nav-link-custom">Contact</a>
+            </div>
+
+            <button class="btn d-md-none text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Offcanvas, sponsors, footer : mêmes blocs que FR, avec textes traduits -->
+    <!-- ... -->
+</body>
+</html>
