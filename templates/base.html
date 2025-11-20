@@ -1,419 +1,869 @@
 {% load static %}
-{% load i18n %}
+{% load custom_filters %}
+
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'fr' }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+<html lang="fr" dir="ltr">
+
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% trans "Ligue Régionale GONF" %}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    {% block Title %}
+    <title>Ligue Régionale Guelmim Oued Noun</title>
+    {% endblock Title %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap 5 -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/png">
+    <link rel="shortcut icon" href="{% static 'img/logo-ligue.png' %}" type="image/x-icon">
 
-    <!-- Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <style>
-        :root {
-            --lr-primary: #1E72B5;
-            --lr-primary-light: #D7EDFA;
-            --lr-accent: #EB9337;
-            --lr-soft: #FDE8C5;
-            --lr-white: #FFFFFF;
-            --lr-dark: #050816;
-        }
+    <!-- FancyTable -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script>
 
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            margin: 0;
-            min-height: 100vh;
-            color: var(--lr-white);
-            background:
-                radial-gradient(circle at 0% 0%, rgba(237, 172, 80, 0.3), transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(30, 114, 181, 0.4), transparent 60%),
-                #050816;
-            background-attachment: fixed;
-        }
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
-        /* Background image Guelmim / Sahara */
-        .bg-guelmim {
-            position: relative;
-            isolation: isolate;
-        }
+    <!-- OwlCarousel -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
-        .bg-guelmim::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background: url("{% static 'img/bg-guelmim.jpg' %}") center/cover no-repeat;
-            opacity: 0.25; /* joue sur cette valeur (0.2–0.4) */
-            filter: saturate(1.2) contrast(1.05);
-        }
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 
-        .bg-guelmim::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(circle at top, rgba(5, 8, 22, 0.5), rgba(5, 8, 22, 0.95));
-        }
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
-        .top-bar {
-            background: rgba(5, 8, 22, 0.95);
-            backdrop-filter: blur(12px);
-            color: var(--lr-white);
-            font-size: 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+    <!-- Timepicker -->
+    <link href="{% static 'css/timepicker.min.css' %}" rel="stylesheet">
 
-        .main-navbar {
-            background: rgba(7, 12, 34, 0.95);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    <!-- Ton CSS global -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
-        .brand-title {
-            font-weight: 800;
-            color: var(--lr-white);
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-        }
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        .brand-subtitle {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.6);
-        }
+    <!-- ======================== -->
+    <!-- 🎨 STYLES GLOBAUX -->
+    <!-- ======================== -->
+  <style>
+    /* ========================== */
+    /*   PALETTE OFFICIELLE       */
+    /* ========================== */
+    :root {
+        --lr-primary: #1E72B5;        /* BLEU GUELMIM */
+        --lr-primary-light: #D7EDFA;  /* BLEU TRÈS CLAIR */
+        --lr-accent: #EB9337;         /* ORANGE ACCENT */
+        --lr-soft: #FDE8C5;           /* BEIGE DOUX */
+        --lr-dark: #0B2236;           /* BLEU TRÈS FONCÉ */
+        --lr-white: #ffffff;
+    }
 
-        .nav-link-custom {
-            text-decoration: none;
-            color: rgba(255,255,255,0.7);
-            font-weight: 500;
-            font-size: 0.9rem;
-            position: relative;
-        }
+    body {
+        font-family: "Inter", "Almarai", system-ui, sans-serif;
+        background: #F8FAFD;
+        color: #111827;
+    }
 
-        .nav-link-custom::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -0.25rem;
-            height: 2px;
-            background: linear-gradient(90deg, var(--lr-accent), var(--lr-primary));
-            transform: scaleX(0);
-            transform-origin: center;
-            transition: transform .2s ease;
-        }
+    /* Fond amazigh discret */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url('/static/img/amazigh.png');
+        background-repeat: repeat;
+        background-size: contain;
+        opacity: 0.035;
+        z-index: -1;
+    }
 
-        .nav-link-custom:hover {
-            color: var(--lr-white);
-        }
+    a { font-size: .9rem !important; }
+    h4, h5 { font-size: 1rem !important; }
 
-        .nav-link-custom:hover::after {
-            transform: scaleX(1);
-        }
+    /* ========================== */
+    /*        TOP BAR LANG        */
+    /* ========================== */
+    .top-nav {
+        background: linear-gradient(90deg, var(--lr-dark), var(--lr-primary)) !important;
+        padding-block: 3px;
+    }
 
-        .btn-pill-primary {
-            background: linear-gradient(135deg, var(--lr-primary), var(--lr-accent));
-            color: var(--lr-white);
-            border-radius: 999px;
-            padding: 0.4rem 1.1rem;
-            border: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.35);
-        }
+    .top-nav .nav-link {
+        color: #E5E7EB !important;
+        font-size: .8rem;
+        padding-inline: 0.6rem;
+    }
 
-        .btn-pill-primary:hover {
-            opacity: 0.9;
-            color: var(--lr-white);
-        }
+    .top-nav .nav-link:hover {
+        color: var(--lr-white) !important;
+    }
 
-        .glass-card {
-            border-radius: 1.25rem;
-            background: radial-gradient(circle at top left, rgba(215, 237, 250, 0.18), rgba(5,8,22,0.9));
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 18px 45px rgba(0,0,0,0.45);
-            position: relative;
-            overflow: hidden;
-        }
+    .lang-select {
+        background: var(--lr-soft);
+        color: var(--lr-primary);
+        border-radius: 999px;
+        padding: 0.15rem 0.75rem;
+        border: none;
+        font-weight: 600;
+        font-size: .75rem;
+    }
 
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background:
-                radial-gradient(circle at 10% 0%, rgba(30, 114, 181, 0.35), transparent 55%),
-                radial-gradient(circle at 90% 100%, rgba(235, 147, 55, 0.3), transparent 55%);
-            opacity: 0.7;
-            z-index: -1;
-        }
+    /* ========================== */
+    /*         NAVBAR MAIN        */
+    /* ========================== */
+    .navbar {
+        background: var(--lr-primary) !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
 
-        .glass-inner {
-            padding: 1.25rem;
-        }
+    .navbar-dark .navbar-nav .nav-link {
+        color: var(--lr-white) !important;
+        padding: .7rem .9rem;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: 0.2s ease;
+    }
 
-        .section-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: .16em;
-            color: var(--lr-soft);
-        }
+    .navbar-dark .navbar-nav .nav-link:hover {
+        background: rgba(255,255,255,0.10);
+    }
 
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: .3rem;
-            padding: 0.2rem 0.7rem;
-            border-radius: 999px;
-            background: rgba(7, 12, 34, 0.8);
-            border: 1px solid rgba(255,255,255,0.12);
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.7);
-        }
+    .navbar-toggler {
+        background: var(--lr-accent);
+        border-radius: 999px;
+        border: none;
+        padding: .25rem .6rem;
+    }
 
-        /* Ticker moderne */
-        .ticker {
-            white-space: nowrap;
-            overflow: hidden;
-            position: relative;
-            border-radius: 999px;
-            background: rgba(7, 12, 34, 0.9);
-            border: 1px solid rgba(255,255,255,0.15);
-        }
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 2px rgba(253,232,197,0.6);
+    }
 
-        .ticker span {
-            display: inline-block;
-            padding-left: 100%;
-            animation: ticker 25s linear infinite;
-            font-size: 0.8rem;
-        }
+    /* RTL */
+    [dir="rtl"] .navbar-nav { text-align: right; }
+    [dir="rtl"] .nav-link { font-family: "Scheherazade New"; font-size: 17px !important; }
 
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+    /* ========================== */
+    /*        BREAKING NEWS       */
+    /* ========================== */
+    #scroll-container {
+        overflow: hidden;
+        background: var(--lr-primary);
+        padding: 5px 10px;
+        border-radius: 999px;
+        margin-block: 6px 16px;
+    }
 
-        .sponsors-strip {
-            background: radial-gradient(circle at top, rgba(215, 237, 250, 0.12), rgba(5,8,22,1));
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+    #scroll-text {
+        color: var(--lr-white);
+        font-weight: 600;
+        white-space: nowrap;
+        gap: 3rem;
+        display: inline-flex;
+        animation: scrollText 18s linear infinite;
+    }
 
-        .sponsor-logo {
-            filter: grayscale(40%);
-            opacity: 0.9;
-            transition: all 0.2s ease;
-            max-height: 38px;
-        }
+    @keyframes scrollText {
+        from { transform: translateX(100%); }
+        to { transform: translateX(-100%); }
+    }
 
-        .sponsor-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: translateY(-2px);
-        }
+    #scroll-text:hover { animation-play-state: paused; }
 
-        footer {
-            background: rgba(5,8,22,0.95);
-            border-top: 1px solid rgba(255,255,255,0.06);
-            font-size: 0.85rem;
-        }
+    /* ========================== */
+    /*          BUTTONS           */
+    /* ========================== */
+    .btn {
+        border-radius: 6px;
+        transition: 0.2s ease;
+    }
 
-        footer a {
-            color: var(--lr-soft);
-            text-decoration: none;
-        }
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.09);
+    }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+    .btn-primary {
+        background: var(--lr-primary);
+        border-color: var(--lr-primary);
+    }
 
-        .offcanvas,
-        .offcanvas-header {
-            background: #050816;
-            color: var(--lr-white);
-        }
+    .btn-primary:hover {
+        background: #15598f;
+    }
 
-        /* RTL mini ajustements */
-        [dir="rtl"] .text-start {
-            text-align: right !important;
-        }
-        [dir="rtl"] .text-end {
-            text-align: left !important;
-        }
+    .btn-accent {
+        background: var(--lr-accent);
+        color: var(--lr-white);
+    }
 
-        @media (max-width: 767.98px) {
-            .brand-title {
-                font-size: 0.75rem;
-            }
-            .brand-subtitle {
-                display: none;
-            }
-        }
-    </style>
+    /* ========================== */
+    /*         SECTION CARDS      */
+    /* ========================== */
+    .section-card {
+        background: var(--lr-white);
+        border-radius: 14px;
+        padding: 1.1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: 0.25s ease;
+    }
 
-    {% block extra_css %}{% endblock %}
+    .section-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .section-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--lr-primary);
+    }
+
+    /* ========================== */
+    /*     PARTENAIRES LOGOS      */
+    /* ========================== */
+    .partners-wrapper {
+        background: var(--lr-primary-light);
+        padding-block: 20px;
+    }
+
+    .partner-logo {
+        height: 70px;
+        width: auto;
+        filter: grayscale(20%);
+        transition: 0.25s ease;
+    }
+
+    .partner-logo:hover {
+        filter: grayscale(0%);
+        transform: translateY(-5px) scale(1.06);
+    }
+
+    /* ========================== */
+    /*           FOOTER           */
+    /* ========================== */
+    .footer-main {
+        background: var(--lr-dark);
+        padding-block: 35px;
+        color: #E5E7EB;
+    }
+
+    .footer-main a { color: var(--lr-soft); }
+    .footer-main a:hover { color: var(--lr-white); }
+
+    .footer-bottom {
+        background: #111827;
+        color: #9CA3AF;
+        padding-block: 10px;
+        text-align: center;
+        font-size: 0.85rem;
+    }
+
+    /* RTL overrides */
+    {% if usedLang == 'ar' %}
+    input, textarea { text-align: right !important; }
+    .nav-link { text-align: right !important; }
+    {% endif %}
+</style>
+
+
+    {% block Styles %}{% endblock Styles %}
 </head>
-<body class="bg-guelmim">
 
-    <!-- Top bar -->
-    <div class="top-bar py-1">
-        <div class="container-fluid px-3 px-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-            <!-- Langues -->
-            <div class="d-flex align-items-center gap-2">
-                <i class="fa-solid fa-globe"></i>
-                <form method="post" action="{% url 'set_language' %}" class="d-inline">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <select name="language" class="form-select form-select-sm bg-dark text-light border-0" style="width: auto; display:inline-block;" onchange="this.form.submit()">
-                        <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>Français</option>
-                        <option value="ar" {% if LANGUAGE_CODE == 'ar' %}selected{% endif %}>العربية</option>
-                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
-                    </select>
-                </form>
+<body>
+{% if not welcome %}
+    <!-- ======================== -->
+    <!-- TOPBAR DESKTOP          -->
+    <!-- ======================== -->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row align-items-center top-nav px-lg-5">
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-sm p-0">
+                    <ul class="navbar-nav ml-n2">
+                        <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small" href="#">{{ ''|date_today }}</a>
+                        </li>
+                        <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small" href="#">{{ "id_contact"|getEquivalentLang:usedLang }}</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item border-right border-secondary d-flex align-items-center {% if usedLang == 'ar' %}flex-row-reverse{% endif %}">
+                                <img src="/media/users/profile-pic/user-circle.png"
+                                     class="{% if usedLang == 'ar' %}mr-2{% else %}ml-2{% endif %}"
+                                     style="max-width: 25px;max-height: 25px;">
+                                <a class="nav-link text-body small m-0" href="/logout/">{{ "id_logout"|getEquivalentLang:usedLang }}</a>
+                            </li>
+                            <li class="nav-item border-right border-secondary d-flex align-items-center {% if usedLang == 'ar' %}flex-row-reverse{% endif %}">
+                                <a class="nav-link text-body small m-0" href="/parametre/">
+                                    <img src="https://img.icons8.com/m_rounded/200/FFFFFF/settings.png"
+                                         class="{% if usedLang == 'ar' %}mr-2{% else %}ml-2{% endif %}"
+                                         style="max-width: 25px;max-height: 25px;color: white">
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link text-body small" href="/login/">{{ "id_login"|getEquivalentLang:usedLang }}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
+            <div class="col-lg-3 text-right d-none d-md-block">
+                <nav class="navbar navbar-expand-sm p-0" style="height: 45px;">
+                    <ul class="navbar-nav ml-auto mr-n2">
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-twitter"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-facebook-f"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-linkedin-in"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-instagram"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <select class="lang-select" id="lang-select">
+                                <option value="ar" {% if usedLang == 'ar' %}selected{% endif %}>AR</option>
+                                <option value="fr" {% if usedLang == 'fr' %}selected{% endif %}>FR</option>
+                            </select>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
 
-            <!-- Réseaux + Login -->
-            <div class="d-flex align-items-center gap-3">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-
-                {% if user.is_authenticated %}
-                    <span class="small me-2">{% trans "Bonjour" %}, {{ user.username }}</span>
-                    <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-light rounded-pill">
-                        <i class="fa-solid fa-right-from-bracket"></i> {% trans "Déconnexion" %}
-                    </a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-sm btn-pill-primary ms-2">
-                        <i class="fa-regular fa-user"></i> {% trans "Espace membre" %}
-                    </a>
-                {% endif %}
+        <!-- LOGOS + SCROLLTEXT -->
+        <div class="row align-items-center justify-content-center bg-white py-2">
+            <div class="col-3 d-flex justify-content-center" style="max-height: 200px;">
+                <img class="img-fluid" src="{% static 'img/FRMF-logo.png' %}" alt="" style="max-height: 120px;">
+            </div>
+            <div class="col-8 d-flex align-items-center justify-content-center">
+                <div id="scroll-container">
+                    <div id="scroll-text">
+                        <div>العصبة الجهوية كلميم واد نون</div>
+                        <div>Ligue Régionale de Guelmim Oued Noun</div>
+                        <div>ⴰⵎⵓⵍⵍⵉ ⴰⵏⵎⵏⴰⴹ ⴳ ⴳⵯⴰⵍⵎⵉⵎ ⵡⴰⴷ ⵏⵓⵏ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 d-flex align-items-center justify-content-center" style="max-height: 200px;">
+                <img class="img-fluid" src="{% static 'img/logo-ligue.png' %}" alt="" style="max-height: 120px;">
             </div>
         </div>
     </div>
+    <!-- Topbar End -->
 
-    <!-- Navbar -->
-    <nav class="main-navbar py-2">
-        <div class="container-fluid px-3 px-md-5 d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-3">
-                <img src="{% static 'img/logo-ligue.png' %}" alt="Ligue" style="height:48px; object-fit:contain;">
-                <div class="d-flex flex-column">
-                    <span class="brand-title">{% trans "Ligue Régionale Guelmim Oued Noun" %}</span>
-                    <small class="brand-subtitle">{% trans "Sous l’égide de la FRMF" %}</small>
+    <!-- ======================== -->
+    <!-- NAVBAR MOBILE + DESKTOP  -->
+    <!-- ======================== -->
+    <div class="container-fluid">
+        <nav class="row navbar navbar-expand-lg navbar-dark py-2 py-lg-0 px-lg-5 p-1"
+             style="flex-wrap: wrap !important;">
+            <div class="col-12 row d-flex justify-content-end p-0 m-0">
+
+                <!-- Bandeau & logo mobile -->
+                <div class="col-8 d-flex align-items-center p-0 d-block d-lg-none">
+                    <div id="scroll-container" style="background-color: transparent;">
+                        <div id="scroll-text">
+                            <div>العصبة الجهوية كلميم واد نون</div>
+                            <div>Ligue Régionale de Guelmim Oued Noun</div>
+                            <div>ⴰⵎⵓⵍⵍⵉ ⴰⵏⵎⵏⴰⴹ ⴳ ⴳⵯⴰⵍⵎⵉⵎ ⵡⴰⴷ ⵏⵓⵏ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4 p-0 d-block d-lg-none text-center">
+                    <a href="/">
+                        <img class="img-fluid" src="{% static 'img/logo-ligue.png' %}" style="max-height: 60px;">
+                    </a>
+                </div>
+
+                <div class="col-12 d-flex align-items-center p-0" style="position: absolute;">
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Desktop nav -->
-            <div class="d-none d-md-flex align-items-center gap-4">
-                <a href="{% url 'home' %}" class="nav-link-custom">{% trans "Accueil" %}</a>
-                <a href="#" class="nav-link-custom">{% trans "Compétitions" %}</a>
-                <a href="#" class="nav-link-custom">{% trans "Clubs" %}</a>
-                <a href="#" class="nav-link-custom">{% trans "Arbitrage" %}</a>
-                <a href="#" class="nav-link-custom">{% trans "Contact" %}</a>
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3 col-12" id="navbarCollapse">
+                <!-- MENU PRINCIPAL -->
+                <div class="navbar-nav {% if usedLang != 'ar' %}mr-auto{% endif %} py-0">
+
+                    <div class="nav-item">
+                        <a href="/" class="nav-item nav-link active">{{ "id_home"|getEquivalentLang:usedLang }}</a>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_ligue"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="#" class="dropdown-item">{{ "id_bureau"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_reglemen_ligue"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_regle_loi"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_club"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_ligue_president"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_ancien_bureau"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_ligue_lumieres"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_valeurs"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_archive"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_commission"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="#" class="dropdown-item">{{ "id_com_lois"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_techn"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_esprit"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_diversi"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_femi"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_progr"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_appel_regional"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_com_arbitr"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    <!-- COMPETITIONS (multi-niveaux) -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_competitions_section"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <div class="dropdown-submenu">
+                                <a href="#" class="dropdown-item dropdown-toggle">{{ "id_competition_football"|getEquivalentLang:usedLang }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">{{ "id_excelence"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_honneur1"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_honneur2"|getEquivalentLang:usedLang }}</a>
+                                    <div class="dropdown-submenu">
+                                        <a href="#" class="dropdown-item dropdown-toggle">{{ "id_youngsection"|getEquivalentLang:usedLang }}</a>
+                                        <div class="dropdown-menu rounded-0 m-0">
+                                            <a href="#" class="dropdown-item">{{ "id_junior"|getEquivalentLang:usedLang }}</a>
+                                            <a href="#" class="dropdown-item">{{ "id_cadet"|getEquivalentLang:usedLang }}</a>
+                                            <a href="#" class="dropdown-item">{{ "id_minimes"|getEquivalentLang:usedLang }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-submenu">
+                                <a href="#" class="dropdown-item dropdown-toggle">{{ "id_competition_futsal"|getEquivalentLang:usedLang }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">{{ "id_excelence"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_honneur1"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_honneur2"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_youngsection"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_junior"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_cadet"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_minimes"|getEquivalentLang:usedLang }}</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-submenu">
+                                <a href="#" class="dropdown-item dropdown-toggle">{{ "id_competition_beach"|getEquivalentLang:usedLang }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">{{ "id_excelence"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_honneur1"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_youngsection"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_junior"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_cadet"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_minimes"|getEquivalentLang:usedLang }}</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-submenu">
+                                <a href="#" class="dropdown-item dropdown-toggle">{{ "id_competition_women"|getEquivalentLang:usedLang }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">{{ "id_excelence"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_honneur1"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_youngsection"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_junior"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_cadet"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_minimes"|getEquivalentLang:usedLang }}</a>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-submenu">
+                                <a href="#" class="dropdown-item dropdown-toggle">{{ "id_competition_baseball"|getEquivalentLang:usedLang }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">{{ "id_mmoin_13"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_mmoin_12"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_mmoin_11"|getEquivalentLang:usedLang }}</a>
+                                    <a href="#" class="dropdown-item">{{ "id_mmoin_09"|getEquivalentLang:usedLang }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_pvs"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="#" class="dropdown-item">{{ "id_approbation"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_esprit"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_appel"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_comm_technique"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="/form/formation/" class="dropdown-item">{{ "id_candidater"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_assurance"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="#" class="dropdown-item">{{ "id_accident_proc"|getEquivalentLang:usedLang }}</a>
+                            <a href="/media/Accident_documents/Accident_1.pdf" target="_blank" class="dropdown-item">{{ "id_accident_decl"|getEquivalentLang:usedLang }}</a>
+                            <a href="/media/Accident_documents/Accident_methodologie.pdf" target="_blank" class="dropdown-item">{{ "id_accident_metho"|getEquivalentLang:usedLang }}</a>
+                            <a href="/media/Accident_documents/Accident_guide.pdf" target="_blank" class="dropdown-item">{{ "id_accident_guide"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_centre_medical"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="#" class="dropdown-item">{{ "id_upload_files"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_verification"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_prise_rdv"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link">{{ "id_activite"|getEquivalentLang:usedLang }}</a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#" class="nav-link">{{ "id_imprime"|getEquivalentLang:usedLang }}</a>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">{{ "id_photos_videos"|getEquivalentLang:usedLang }}</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="#" class="dropdown-item">{{ "id_upload_video"|getEquivalentLang:usedLang }}</a>
+                            <a href="#" class="dropdown-item">{{ "id_MediaPhotos"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                        <div class="nav-item text-center d-lg-none">
+                            <img src="/media/users/profile-pic/user-circle.png"
+                                 class="{% if usedLang == 'ar' %}mr-2{% else %}ml-2{% endif %}"
+                                 style="max-width: 25px;max-height: 25px;">
+                            <a class="nav-link text-body small m-0" href="/logout/">{{ "id_logout"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                        <div class="nav-item text-center d-lg-none">
+                            <a class="nav-link text-body small m-0" href="/parametre/">
+                                <img src="https://img.icons8.com/m_rounded/200/FFFFFF/settings.png"
+                                     class="{% if usedLang == 'ar' %}mr-2{% else %}ml-2{% endif %}"
+                                     style="max-width: 25px;max-height: 25px;color: white">
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="nav-item d-lg-none">
+                            <a class="nav-link text-body small" href="/login/">{{ "id_login"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+
             </div>
-
-            <!-- Mobile burger -->
-            <button class="btn d-md-none text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Offcanvas mobile -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title">{% trans "Menu" %}</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-      </div>
-      <div class="offcanvas-body d-flex flex-column gap-3">
-        <a href="{% url 'home' %}" class="nav-link-custom">{% trans "Accueil" %}</a>
-        <a href="#" class="nav-link-custom">{% trans "Compétitions" %}</a>
-        <a href="#" class="nav-link-custom">{% trans "Clubs" %}</a>
-        <a href="#" class="nav-link-custom">{% trans "Arbitrage" %}</a>
-        <a href="#" class="nav-link-custom">{% trans "Contact" %}</a>
-      </div>
+        </nav>
     </div>
+    <!-- Navbar End -->
 
-    <!-- Contenu principal -->
-    <main>
-        {% block content %}{% endblock %}
+    <!-- ======================== -->
+    <!-- CONTENU DE LA PAGE       -->
+    <!-- ======================== -->
+    <main class="mt-3">
+        {% block Content %}
+        {% endblock Content %}
     </main>
 
-    <!-- Sponsors -->
-    <section class="sponsors-strip py-3 mt-4">
-        <div class="container-fluid px-3 px-md-5">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                <span class="fw-semibold text-uppercase text-muted small">{% trans "Partenaires officiels" %}</span>
-                <div class="d-flex flex-wrap align-items-center gap-4">
-                    <img src="{% static 'img/sponsors/fifa.png' %}" class="sponsor-logo" alt="FIFA">
-                    <img src="{% static 'img/sponsors/frmf.png' %}" class="sponsor-logo" alt="FRMF">
-                    <img src="{% static 'img/sponsors/region.png' %}" class="sponsor-logo" alt="Conseil Régional">
-                    <img src="{% static 'img/sponsors/sponsor1.png' %}" class="sponsor-logo" alt="Sponsor 1">
-                    <img src="{% static 'img/sponsors/sponsor2.png' %}" class="sponsor-logo" alt="Sponsor 2">
-                </div>
+    <!-- ======================== -->
+    <!-- PARTENAIRES              -->
+    <!-- ======================== -->
+    <div class="container-fluid partners-wrapper-title px-sm-3 px-md-5 mb-2 mt-5">
+        <h4 class="m-0 text-uppercase font-weight-bold text-center" style="text-decoration: underline;">
+            {{ "id_partenaires"|getEquivalentLang:usedLang }}
+        </h4>
+    </div>
+    <div class="container-fluid partners-wrapper px-sm-3 px-md-5">
+        <div class="row py-4 justify-content-center align-items-center text-center">
+            <div class="col-6 col-md-2 my-2">
+                <a href="#">
+                    <img class="partner-logo" src="{% static 'img/logo-FRMF.png' %}" alt="">
+                </a>
+            </div>
+            <div class="col-6 col-md-2 my-2">
+                <a href="#">
+                    <img class="partner-logo" src="{% static 'img/sponsors/CAF.png' %}" alt="">
+                </a>
+            </div>
+            <div class="col-6 col-md-2 my-2">
+                <a href="#">
+                    <img class="partner-logo" src="{% static 'img/sponsors/FIFA.png' %}" alt="">
+                </a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="pt-4 pb-3 mt-4">
-        <div class="container-fluid px-3 px-md-5">
-            <div class="row g-4">
-                <div class="col-12 col-md-4">
-                    <h6 class="text-uppercase mb-3">{% trans "Ligue Régionale Guelmim Oued Noun" %}</h6>
-                    <p class="mb-2">
-                        {% trans "Porte du Sahara marocain, dédiée au développement du football régional et à la promotion de la culture hassanie." %}
-                    </p>
-                </div>
-                <div class="col-6 col-md-4">
-                    <h6 class="text-uppercase mb-3">{% trans "Liens utiles" %}</h6>
-                    <ul class="list-unstyled mb-0">
-                        <li><a href="#">{% trans "À propos" %}</a></li>
-                        <li><a href="#">{% trans "Règlements" %}</a></li>
-                        <li><a href="#">{% trans "Documents officiels" %}</a></li>
-                        <li><a href="#">{% trans "Contact & réclamations" %}</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-4">
-                    <h6 class="text-uppercase mb-3">{% trans "Coordonnées" %}</h6>
-                    <p class="mb-1"><i class="fa-solid fa-location-dot me-2"></i>{% trans "Adresse de la Ligue, Guelmim-Oued Noun" %}</p>
-                    <p class="mb-1"><i class="fa-solid fa-phone me-2"></i>+212 5XX XX XX XX</p>
-                    <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>contact@lrgonf.ma</p>
-                    <p class="mb-0">
-                        <i class="fa-solid fa-map me-2"></i>
-                        {% trans "GPS :" %} 28.988, -10.057 <!-- exemple -->
-                    </p>
+    <!-- ======================== -->
+    <!-- FOOTER                   -->
+    <!-- ======================== -->
+    <div class="container-fluid footer-main px-sm-3 px-md-5 {% if usedLang == 'ar' %}txt-align{% endif %}">
+        <div class="row pt-3 justify-content-center" {% if usedLang == 'ar' %}style="flex-direction: row-reverse !important;"{% endif %}>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <h5 class="mb-3 text-white text-uppercase font-weight-bold">{{ "id_infos"|getEquivalentLang:usedLang }}</h5>
+                <p class="font-weight-medium mb-2">
+                    {{ "id_siege"|getEquivalentLang:usedLang }}
+                    <i class="fa fa-map-marker-alt mr-2"></i>
+                </p>
+                <p class="font-weight-medium mb-2">{{ "id_siege_next"|getEquivalentLang:usedLang }}</p>
+                <p class="font-weight-medium mb-2">
+                    <i class="fa fa-phone-alt mr-2"></i>
+                    +212 5.. ... ... &nbsp; | &nbsp  07 50 193 038
+                </p>
+                <p class="font-weight-medium mb-3">
+                    <i class="fa fa-envelope mr-2"></i>
+                    email@email.fr - email@email.com
+                </p>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2 d-flex justify-content-center align-items-center" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2 d-flex justify-content-center align-items-center" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2 d-flex justify-content-center align-items-center" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2 d-flex justify-content-center align-items-center" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square d-flex justify-content-center align-items-center" href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
 
-            <hr class="border-light mt-4">
-
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-                <span class="small">© {% now "Y" %} {% trans "Ligue Régionale Guelmim Oued Noun. Tous droits réservés." %}</span>
-                <span class="small">
-                    {% trans "Design & développement" %} :
-                    <a href="https://kmt-devs.com" target="_blank" rel="noopener">KMT Devs</a>
-                </span>
+            <div class="col-lg-4 col-md-6 mb-3">
+                <h4 class="text-white text-uppercase font-weight-bold mb-3">{{ "id_localisation"|getEquivalentLang:usedLang }}</h4>
+                <iframe src="https://maps.app.goo.gl/NcEnyMgaGAJuj4rw8"
+                        style="border:0;width: 100%;height: 87%" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+
+            <div class="col-lg-4 col-md-6 mb-3">
+                <h5 class="mb-3 text-white text-uppercase font-weight-bold">{{ "id_liens"|getEquivalentLang:usedLang }}</h5>
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <a class="small text-white text-capitalize" target="_blank" href="https://frmf.ma.services/">{{ "id_lien_qualif"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <a class="small text-white text-capitalize" target="_blank" href="https://frmf.ma/">{{ "id_lien_federation"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <a class="small text-white text-capitalize" target="_blank" href="https://frmf.ma/competitions/futsal/">{{ "id_lien_diver"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <a class="small text-white text-capitalize" target="_blank" href="https://lnfp.ma/">{{ "id_lien_pro"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <a class="small text-white text-capitalize" target="_blank" href="https://lnfa.ma/">{{ "id_lien_amat"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <a class="small text-white text-capitalize" target="_blank" href="https://frmf.ma/wp-content/uploads/2023/11/Guide-de-la-responsabilite-civile-sportive.pdf">{{ "id_lien_guide"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </footer>
+    </div>
 
-    <!-- JS Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="container-fluid footer-bottom py-2 px-sm-3 px-md-5">
+        <p class="m-0 text-center">
+            &copy; <span style="color: #FDE8C5;">lrgonf.ma</span> {{ "id_rights"|getEquivalentLang:usedLang }}
+        </p>
+    </div>
 
-    {% block extra_js %}{% endblock %}
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+{% endif %}
+
+<div id="overlayloading" class="d-none"></div>
+
+<!-- TOAST CONTAINER -->
+<div aria-live="polite" aria-atomic="true"
+     class="position-fixed"
+     style="top: 1rem; right: 1rem; z-index: 20000; min-width: 320px;">
+  <div id="toastStack" class="toast-container"></div>
+</div>
+
 </body>
+
+<!-- ======================== -->
+<!-- SCRIPTS TOASTS & LANG    -->
+<!-- ======================== -->
+<script>
+  const LEVEL_MAP = {
+    success: 'success',
+    info: 'info',
+    warning: 'warning',
+    error: 'danger',
+    danger: 'danger',
+    debug: 'secondary'
+  };
+
+  window.showToast = function(level='info', message='', title='') {
+    const ctx = LEVEL_MAP[level] || 'secondary';
+    const stack = document.getElementById('toastStack');
+    if (!stack) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${ctx}`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    toast.dataset.delay = '3000';
+    toast.innerHTML = `
+      <div class="toast-body d-flex justify-content-between align-items-center">
+        <div>${title ? `<strong>${title}</strong>` : ''}${message}</div>
+        <button type="button" class="ml-2 mb-1 close text-light" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `;
+    stack.appendChild(toast);
+    $(toast).toast('show');
+    $(toast).on('hidden.bs.toast', () => toast.remove());
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    {% if messages %}
+      {% for m in messages %}
+        window.showToast('{{ m.tags|default:"info" }}', "{{ m|escapejs }}");
+      {% endfor %}
+    {% endif %}
+  });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/timepicker.min.js' %}"></script>
+
+<!-- Lang change -->
+<script>
+    document.getElementById('lang-select')?.addEventListener('change', function (e) {
+        var selectedText = e.target.value;
+        var currlink = window.location.href;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'changeSitegeLang' %}",
+            data: {'lang': selectedText, 'link': currlink},
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    });
+</script>
+
+<!-- Dropdown multi-niveaux mobile -->
+<script>
+    window.addEventListener('resize', function(){
+        if (window.innerWidth <= 991){
+            setToggleToA();
+        } else {
+            removeToggleToA();
+        }
+    });
+
+    $(document).ready(function () {
+        if (window.innerWidth <= 991){
+            setToggleToA();
+        } else {
+            removeToggleToA();
+        }
+    });
+
+    function setToggleToA() {
+        var elements = document.querySelectorAll('a.nav-link.dropdown-toggle');
+        elements.forEach(element => {
+            element.setAttribute('data-toggle', 'dropdown');
+        });
+    }
+
+    function removeToggleToA() {
+        var elements = document.querySelectorAll('a.nav-link.dropdown-toggle');
+        elements.forEach(element => {
+            element.removeAttribute('data-toggle');
+            element.closest('div').classList.remove('show');
+            element.removeAttribute('aria-expanded');
+            var dropdownMenu = element.nextElementSibling;
+            if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        document.querySelectorAll('div.show').forEach(el => el.classList.remove('show'));
+    }
+
+    $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
+        e.preventDefault();
+        if (window.innerWidth <= 991) {
+            if (!$(this).next().hasClass('show')) {
+                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+            }
+            var $subMenu = $(this).next(".dropdown-menu");
+            $subMenu.toggleClass('show');
+            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
+                $('.dropdown-submenu .show').removeClass("show");
+            });
+            return false;
+        }
+    });
+
+    // ajustement RTL
+    document.addEventListener("DOMContentLoaded", function () {
+        let htmlTag = document.documentElement;
+        let navbar = document.querySelector(".navbar");
+        if (!navbar) return;
+        if ('{{ usedLang }}' === 'ar') {
+            htmlTag.setAttribute("dir", "rtl");
+            navbar.classList.add("rtl-navbar");
+        } else {
+            htmlTag.setAttribute("dir", "ltr");
+            navbar.classList.remove("rtl-navbar");
+        }
+    });
+</script>
+
+<!-- Select2 + filtrage input -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        Array.from(document.getElementsByTagName('select')).forEach(element => {
+            if (element.classList.contains("apply_select2")){
+                $("#" + element.id).select2();
+            }
+        });
+
+        const forbiddenChars = ['[', ']', '#', '$', '%', '{', '}', '*', "'", '"', ';', '--', '\\', '/', '=',
+            '<', '>', '`', '|', '&', '^','\0', '\b', '\t', '\n', '\v', '\f', '\r'];
+
+        Array.from(document.getElementsByTagName('input')).forEach(element => {
+            element.addEventListener('keydown', (event) => {
+                if (forbiddenChars.includes(event.key)) {
+                    event.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+
+{% block Scripts %}{% endblock Scripts %}
+
 </html>

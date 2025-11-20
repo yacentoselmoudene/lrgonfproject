@@ -1,262 +1,1080 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
 {% load static %}
-{% load i18n %}
+{% load custom_filters %}
 
-{% block title %}{% trans "Accueil - Ligue Régionale Guelmim Oued Noun" %}{% endblock %}
+{% block Title %}
+    <title>LRGONF - Ligue Régionale Guelmim Oued Noun</title>
+{% endblock Title %}
 
-{% block content %}
+{% block Styles %}
+    <style>
+        :root {
+            --lr-primary: #1E72B5;
+            --lr-primary-light: #D7EDFA;
+            --lr-accent: #EB9337;
+            --lr-soft: #FDE8C5;
+            --lr-dark: #0B2236;
+            --lr-white: #ffffff;
+        }
 
-<!-- HERO -->
-<section class="py-4 py-md-5">
-  <div class="container-fluid px-3 px-md-5">
-    <div class="row g-4 align-items-center">
-      <div class="col-12 col-lg-7">
-        <div class="glass-card">
-          <div class="glass-inner">
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="chip">
-                <i class="fa-solid fa-location-dot"></i>
-                {% trans "Guelmim-Oued Noun · Porte du Sahara" %}
-              </span>
-              <span class="chip">
-                <i class="fa-regular fa-futbol"></i>
-                {% trans "Football régional & compétitions officielles" %}
-              </span>
-            </div>
-            <h1 class="fw-bold mb-3" style="font-size: clamp(1.8rem, 3vw, 2.4rem);">
-              {% trans "Une nouvelle ère pour le football dans le Sud" %}
-            </h1>
-            <p class="mb-4" style="font-size: 0.95rem; color: rgba(255,255,255,0.75);">
-              {% trans "Découvrez les championnats, les clubs, les talents et les résultats de la Ligue Régionale de Guelmim-Oued Noun, au cœur de la culture hassanie." %}
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <a href="#" class="btn btn-pill-primary">
-                <i class="fa-solid fa-trophy me-1"></i> {% trans "Voir les compétitions" %}
-              </a>
-              <a href="#" class="btn btn-sm btn-outline-light rounded-pill">
-                <i class="fa-solid fa-calendar-days me-1"></i> {% trans "Calendrier des matchs" %}
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+        .btn-tr:focus, .btn.focus {
+            box-shadow: none !important;
+        }
 
-      <!-- Ticker + bloc match prochain -->
-      <div class="col-12 col-lg-5">
-        <div class="mb-3">
-          <div class="ticker px-3 py-2">
-            <span>
-              ⚽ {% trans "Prochaine journée Seniors – Samedi 20h, Stade Municipal Guelmim" %} •
-              🏆 {% trans "Finale Coupe Régionale U19 – Dimanche 16h, Centre Technique" %} •
-              📢 {% trans "Rappel : Date limite licences – 30/11" %} •
-            </span>
-          </div>
-        </div>
+        /* ========= HERO SLIDER ========= */
+        .main-carousel .position-relative {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
 
-        <div class="glass-card">
-          <div class="glass-inner d-flex flex-column gap-2">
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="section-title mb-0">{% trans "Prochain match phare" %}</span>
-              <span class="badge rounded-pill text-bg-warning text-dark">{% trans "Seniors" %}</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-1">
-              <div class="text-start">
-                <div class="fw-semibold">Club A</div>
-                <div class="small text-muted">Guelmim</div>
-              </div>
-              <div class="text-center">
-                <div style="font-size:1.4rem; font-weight:700;">vs</div>
-                <div class="small text-muted">{% trans "Sam 20h" %}</div>
-              </div>
-              <div class="text-end">
-                <div class="fw-semibold">Club B</div>
-                <div class="small text-muted">Tan-Tan</div>
-              </div>
-            </div>
-            <div class="small text-muted mt-2">
-              <i class="fa-solid fa-location-dot me-1"></i> {% trans "Stade Municipal de Guelmim" %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        .main-carousel .position-relative img {
+            transform: scale(1.02);
+        }
 
-<!-- SECTIONS CARDS -->
-<section class="pb-4 pb-md-5">
-  <div class="container-fluid px-3 px-md-5">
-    <div class="row g-4">
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(11, 34, 54, 0.9), rgba(11, 34, 54, 0.4), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.8rem 2.2rem;
+        }
 
-      <!-- Annonces & Programmes -->
-      <div class="col-12 col-lg-4">
-        <div class="glass-card mb-3">
-          <div class="glass-inner">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="section-title mb-0">{% trans "Annonces officielles" %}</h2>
-              <a href="#" class="small text-decoration-none" style="color: rgba(255,255,255,0.7);">{% trans "Tout voir" %}</a>
-            </div>
-            <div class="d-flex flex-column gap-2 small">
-              <div>
-                <span class="badge rounded-pill text-bg-primary mb-1">{% trans "Officiel" %}</span>
-                <div class="fw-semibold">{% trans "Assemblée générale ordinaire – 15/12/2025" %}</div>
-                <div class="text-muted">{% trans "Convocation des clubs affiliés et validation de la saison." %}</div>
-              </div>
-              <div>
-                <span class="badge rounded-pill text-bg-info mb-1">{% trans "Note" %}</span>
-                <div class="fw-semibold">{% trans "Mise à jour des formulaires de licences 2025–2026" %}</div>
-              </div>
-              <div>
-                <span class="badge rounded-pill text-bg-success mb-1">{% trans "Appel à candidatures" %}</span>
-                <div class="fw-semibold">{% trans "Clubs participants à la Coupe Régionale" %}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        .overlay .badge-primary {
+            background: var(--lr-accent);
+            border-radius: 999px;
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+        }
 
-        <div class="glass-card">
-          <div class="glass-inner">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="section-title mb-0">{% trans "Programmes" %}</h2>
-              <a href="#" class="small text-decoration-none" style="color: rgba(255,255,255,0.7);">{% trans "Calendrier complet" %}</a>
-            </div>
-            <ul class="list-unstyled mb-0 small">
-              <li class="mb-2">
-                <span class="fw-semibold">{% trans "Journée 10 – Seniors" %}</span><br>
-                {% trans "Samedi 20h – Stade Municipal 1" %}
-              </li>
-              <li class="mb-2">
-                <span class="fw-semibold">{% trans "U19 – Poule A" %}</span><br>
-                {% trans "Dimanche 16h – Centre Technique Régional" %}
-              </li>
-              <li class="mb-2">
-                <span class="fw-semibold">{% trans "Futsal – Phase Playoffs" %}</span><br>
-                {% trans "Vendredi 19h – Salle Omnisports" %}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        .overlay .h2 {
+            font-size: clamp(1.4rem, 2.4vw, 2rem);
+            line-height: 1.3;
+        }
 
-      <!-- News -->
-      <div class="col-12 col-lg-4">
-        <div class="glass-card h-100">
-          <div class="glass-inner">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="section-title mb-0">{% trans "Dernières news" %}</h2>
-              <a href="#" class="small text-decoration-none" style="color: rgba(255,255,255,0.7);">{% trans "Toutes les news" %}</a>
-            </div>
-            <div class="d-flex flex-column gap-3 small">
-              <div class="d-flex gap-3 align-items-center">
-                <div style="width:84px; height:60px; border-radius:0.75rem; background:#ccc url('{% static "img/news/thumb1.jpg" %}') center/cover;"></div>
-                <div>
-                  <div class="text-muted mb-1">15 nov 2025</div>
-                  <div class="fw-semibold">{% trans "Résultats de la 8ème journée Seniors" %}</div>
-                  <div class="text-muted">{% trans "Retour sur les matchs phares du week-end." %}</div>
-                </div>
-              </div>
+        /* ========= BREAKING NEWS ========= */
+        .breaking-wrapper {
+            background: var(--lr-primary);
+            border-radius: 999px;
+            padding: 4px 10px;
+            margin: 14px auto 18px auto;
+        }
 
-              <div class="d-flex gap-3 align-items-center">
-                <div style="width:84px; height:60px; border-radius:0.75rem; background:#ccc url('{% static "img/news/thumb2.jpg" %}') center/cover;"></div>
-                <div>
-                  <div class="text-muted mb-1">12 nov 2025</div>
-                  <div class="fw-semibold">{% trans "Stage régional des arbitres" %}</div>
-                  <div class="text-muted">{% trans "Formation continue pour les officiels de match." %}</div>
-                </div>
-              </div>
+        .breaking-label {
+            background: var(--lr-accent);
+            color: #111827;
+            font-weight: 700;
+            font-size: .8rem;
+            text-transform: uppercase;
+            border-radius: 999px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
 
-              <div class="d-flex gap-3 align-items-center">
-                <div style="width:84px; height:60px; border-radius:0.75rem; background:#ccc url('{% static "img/news/thumb3.jpg" %}') center/cover;"></div>
-                <div>
-                  <div class="text-muted mb-1">10 nov 2025</div>
-                  <div class="fw-semibold">{% trans "Lancement du championnat féminin régional" %}</div>
-                  <div class="text-muted">{% trans "Nouvelle étape pour le football féminin dans la région." %}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        .breaking-label i {
+            font-size: .8rem;
+        }
 
-      <!-- Résultats & Classement -->
-      <div class="col-12 col-lg-4">
-        <div class="glass-card mb-3">
-          <div class="glass-inner">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="section-title mb-0">{% trans "Résultats récents" %}</h2>
-              <a href="#" class="small text-decoration-none" style="color: rgba(255,255,255,0.7);">{% trans "Tous les résultats" %}</a>
-            </div>
-            <table class="table table-sm align-middle mb-0 text-light">
-              <tbody style="font-size:0.85rem;">
-                <tr>
-                  <td>Club A</td>
-                  <td class="text-center fw-bold">2 - 1</td>
-                  <td class="text-end">Club B</td>
-                </tr>
-                <tr>
-                  <td>Club C</td>
-                  <td class="text-center fw-bold">0 - 0</td>
-                  <td class="text-end">Club D</td>
-                </tr>
-                <tr>
-                  <td>Club E</td>
-                  <td class="text-center fw-bold">3 - 2</td>
-                  <td class="text-end">Club F</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        .tranding-carousel .text-truncate a {
+            font-size: .8rem;
+        }
 
-        <div class="glass-card">
-          <div class="glass-inner">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h2 class="section-title mb-0">{% trans "Classement Seniors" %}</h2>
-              <a href="#" class="small text-decoration-none" style="color: rgba(255,255,255,0.7);">{% trans "Classement complet" %}</a>
-            </div>
-            <table class="table table-sm mb-0 text-light">
-              <thead>
-                <tr class="small text-muted">
-                  <th>#</th>
-                  <th>{% trans "Club" %}</th>
-                  <th class="text-center">{% trans "Pts" %}</th>
-                  <th class="text-center">{% trans "J" %}</th>
-                </tr>
-              </thead>
-              <tbody style="font-size:0.85rem;">
-                <tr>
-                  <td>1</td>
-                  <td>Club A</td>
-                  <td class="text-center fw-bold">22</td>
-                  <td class="text-center">10</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Club B</td>
-                  <td class="text-center fw-bold">19</td>
-                  <td class="text-center">10</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Club C</td>
-                  <td class="text-center fw-bold">17</td>
-                  <td class="text-center">10</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Club D</td>
-                  <td class="text-center fw-bold">15</td>
-                  <td class="text-center">10</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        /* ========= NEWS CARDS ========= */
+        .single-news {
+            background-color: var(--lr-white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+        }
 
-      </div>
+        .news-img {
+            max-width: 100% !important;
+            max-height: 245px !important;
+            border-radius: 1rem 1rem 0 0 !important;
+        }
 
-    </div>
-  </div>
-</section>
+        .elipsis-title {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
+        .elipsis-description {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .single-news .badge-primary {
+            background: var(--lr-primary);
+            border-radius: 999px;
+            font-size: .65rem;
+        }
+
+        .single-news .h4 {
+            font-size: 0.95rem;
+        }
+
+        /* ========= MATCH TABS ========= */
+        .match-result-tabs-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            width: 100%;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.3rem 0.2rem;
+        }
+
+        .match-result-tabs-container::-webkit-scrollbar {
+            height: 6px !important;
+        }
+
+        .match-result-tabs-container::-webkit-scrollbar-track {
+            border-radius: 999px;
+            background-color: var(--lr-primary-light);
+        }
+
+        .match-result-tabs-container::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            background-color: var(--lr-accent);
+        }
+
+        .match-result-tab {
+            display: inline-block;
+            background-color: transparent !important;
+            padding: 7px 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            color: #6B7280;
+            border: none;
+            outline: none;
+            transition: all 0.2s ease;
+            border-radius: 999px;
+        }
+
+        .match-result-tab:focus {
+            outline: none !important;
+        }
+
+        .match-result-tab.active {
+            color: var(--lr-primary);
+            font-weight: 600;
+            background: var(--lr-primary-light);
+            border-bottom: none;
+        }
+
+        .match-result-tab-content {
+            display: none;
+            padding-top: 12px;
+        }
+
+        .match-result-tab-content.active {
+            display: block;
+        }
+
+        .tabs-pass-journee {
+            color: #9CA3AF !important;
+        }
+
+        .tabs-current-journee.active {
+            background: var(--lr-soft);
+            color: var(--lr-accent) !important;
+        }
+
+        .carousel-control-next span,
+        .carousel-control-prev span {
+            background-color: var(--lr-accent);
+            padding: 5px;
+            border-radius: 999px;
+        }
+
+        .link-hover:hover {
+            text-decoration: none;
+            background-color: #F3F4F6 !important;
+        }
+
+        /* ========= MATCH CAROUSEL CARD ========= */
+        .box-lr {
+            background: radial-gradient(circle at top left, var(--lr-primary-light), #ffffff);
+            border-radius: 1rem !important;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+            padding: 0.75rem 0.25rem;
+        }
+
+        .box-lr img {
+            max-height: 54px !important;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+        }
+
+        /* ========= SECTIONS LAYOUT ========= */
+        .section-title {
+            border-bottom: none !important;
+        }
+
+        .section-title h4 {
+            font-size: .95rem !important;
+            color: var(--lr-dark);
+        }
+
+        .alert-warning {
+            border-radius: 0.75rem;
+            border-color: var(--lr-soft);
+            background: #FEF3C7;
+            font-size: 0.85rem;
+        }
+    </style>
 {% endblock %}
+
+{% block Content %}
+
+    <!-- Main News Slider Start -->
+    <div class="container-fluid px-0 px-lg-5">
+        <div class="row">
+            <div class="col-12 px-0">
+                <div class="owl-carousel main-carousel position-relative">
+                    {% for news in latest_news %}
+                        {% if news.public_slider %}
+                            <div class="position-relative overflow-hidden" style="height: 500px;">
+                                <img class="img-fluid h-100" src="/media/{{ news.thumbnail }}"
+                                     style="object-fit: cover;">
+                                <div class="overlay">
+                                    <div class="mb-2">
+                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
+                                            FootBall
+                                        </a>
+                                        <a class="text-white" href="">
+                                            <small><i class="far fa-calendar-alt mr-1"></i>{{ news.date }}</small>
+                                        </a>
+                                    </div>
+                                    <a class="h2 m-0 text-white text-uppercase font-weight-bold"
+                                       href="/news/{{ news.id }}">{{ news.title }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main News Slider End -->
+
+
+    <!-- Breaking News Start (NOUVELLE VERSION) -->
+    <div class="container-fluid mb-3 px-0 px-lg-5">
+        <div class="container breaking-wrapper">
+            <div class="row align-items-center">
+                <div class="col-12 d-flex flex-wrap align-items-center">
+                    <!-- Label -->
+                    <div class="d-none d-lg-block mr-3">
+                        <div class="breaking-label">
+                            <i class="fa-solid fa-bolt"></i>
+                            {{ "id_derni_nouve"|getEquivalentLang:usedLang }}
+                        </div>
+                    </div>
+                    <!-- Carrousel -->
+                    <div class="col-lg-9 col-12 owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-lg-3"
+                         style="width: 100%; padding-right: 90px;">
+
+                        {% for item in annonces %}
+                            {% if item.public_breaknews %}
+                                <div class="text-truncate">
+                                    <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
+                                       href="/media/{{ item.pdf }}">
+                                        {{ item.title }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% for item in programme %}
+                            {% if item.public_breaknews %}
+                                <div class="text-truncate">
+                                    <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
+                                       href="/media/{{ item.pdf }}">
+                                        {{ item.title }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breaking News End -->
+
+
+    <!-- News With Sidebar Start -->
+    <div class="container-fluid px-0 px-lg-5">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- COL GAUCHE -->
+                <div class="col-lg-3">
+
+                    <!-- Filters -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0" style="padding: 0px !important;">
+                            <button class="btn btn-tr col-12 text-left text-dark text-uppercase font-weight-bold"
+                                    type="button"
+                                    data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne"
+                                    style="padding: 12px 15px !important; background: var(--lr-primary-light); border-radius: 999px;">
+                                {{ "id_filtres"|getEquivalentLang:usedLang }}
+                            </button>
+                        </div>
+                        <div class="bg-white border border-top-0" style="border-radius: 0 0 1rem 1rem;">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card" style="border: none !important;">
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                         data-parent="#accordionExample">
+                                        <div class="card-body">
+
+                                            <div class="row mx-sm-2 my-2" style="justify-content:space-evenly">
+                                                <div class="col-12 my-2">
+                                                    <label for="{{ filters_form.saison.id_for_label }}">
+                                                        {{ filters_form.saison.id_for_label|getEquivalentLang:usedLang }}
+                                                    </label>
+                                                    {{ filters_form.saison }}
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <label for="{{ filters_form.competition.id_for_label }}">
+                                                        {{ filters_form.competition.id_for_label|getEquivalentLang:usedLang }}
+                                                    </label>
+                                                    {{ filters_form.competition }}
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <label for="{{ filters_form.pole.id_for_label }}">
+                                                        {{ filters_form.pole.id_for_label|getEquivalentLang:usedLang }}
+                                                    </label>
+                                                    {{ filters_form.pole }}
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <label for="{{ filters_form.categorie_pole.id_for_label }}">
+                                                        {{ filters_form.categorie_pole.id_for_label|getEquivalentLang:usedLang }}
+                                                    </label>
+                                                    {{ filters_form.categorie_pole }}
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <label for="{{ filters_form.division.id_for_label }}">
+                                                        {{ filters_form.division.id_for_label|getEquivalentLang:usedLang }}
+                                                    </label>
+                                                    {{ filters_form.division }}
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <label for="{{ filters_form.groupe_division.id_for_label }}">
+                                                        {{ filters_form.groupe_division.id_for_label|getEquivalentLang:usedLang }}
+                                                    </label>
+                                                    {{ filters_form.groupe_division }}
+                                                </div>
+
+                                                <div class="col-12 my-2 d-flex justify-content-center">
+                                                    <button type="button" id="btn-search-match" class="btn btn-success btn-sm px-3"
+                                                            style="background: var(--lr-accent); border-color: var(--lr-accent);">
+                                                        <div class="text-content">
+                                                            Apply
+                                                        </div>
+                                                        <div class="spinner-content spinner-border text-light d-none"
+                                                             role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class='alert alert-warning text-center py-2 my-2'>
+                        {% if usedLang == 'ar' %}
+                            <strong>النتائج والترتيب قيد التجربة</strong> ⚠️
+                        {% else %}
+                            <strong>Résultats et Classement en phase de test.</strong> ⚠️
+                        {% endif %}
+                    </div>
+
+                    <!-- RÉSULTATS -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_matches"|getEquivalentLang:usedLang }}</h4>
+                        </div>
+                        <div class="bg-white border border-top-0" style="border-radius: 0 0 1rem 1rem;">
+
+                            <div class="match-result-tabs-container" id="id_tabs_group_division_matchs"></div>
+                            <div id="id_group_division_matchs"></div>
+
+                            <div id="spinner-content-div" class="justify-content-center align-items-center m-3"
+                                 style="display: flex">
+                                <div class="spinner-content spinner-border text-warning " role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- CLASSEMENTS -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_classements"|getEquivalentLang:usedLang }}</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3" id="id_classement" style="border-radius: 0 0 1rem 1rem;">
+                            <div class="d-flex justify-content-center align-items-center " style="width: 100%">
+                                <div class="spinner-content spinner-border text-warning" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- COL CENTRALE -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section-title m-0"
+                                 {% if usedLang == 'ar' %}style="justify-content: space-between !important;" {% endif %}>
+                                <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_allMtch"|getEquivalentLang:usedLang }}</h4>
+                                <a class="text-secondary font-weight-medium text-decoration-none" target="_blank"
+                                   href="#">{{ "id_voir_tou"|getEquivalentLang:usedLang }}</a>
+                            </div>
+                        </div>
+                        <div class="col-12 row">
+
+                            {% if not matches %}
+                                <div class="col-12 d-flex justify-content-center"
+                                     style="background-color: #ffffffb8; border-radius: 10px !important;">
+                                    <span class="p-4 text-center">لم تبرمج أي مباراة لهذا اليوم</span>
+                                </div>
+                            {% endif %}
+
+                            <div id="demo" class="carousel slide col-12" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ul class="carousel-indicators">
+                                    {% for item in matches %}
+                                        <li data-target="#demo" data-slide-to="{{ forloop.counter }}"
+                                            class="{% if forloop.first %}active{% endif %}"></li>
+                                    {% endfor %}
+                                </ul>
+
+                                <!-- The slideshow -->
+                                <div class="carousel-inner">
+                                    {% for item in matches %}
+                                        <a href="/match/?m={{ item.id }}" target="_blank"
+                                           class="carousel-item link-hover {% if forloop.first %}active{% endif %}">
+                                            <div class="row align-items-center box-lr">
+                                                <div class="col-5 justify-content-center d-flex flex-column">
+                                                    <div class="text-center text-dark font-weight-bold">
+                                                        {{ item.equipe_Recevante__abreviation }}
+                                                    </div>
+                                                    <div class="d-flex justify-content-center my-1">
+                                                        <img src="/media/{{ item.equipe_Recevante__logo }}"
+                                                             alt="{{ item.equipe_Recevante__abreviation }}-logo">
+                                                    </div>
+                                                    <div class="text-center text-dark font-weight-bold mt-3"
+                                                         style="font-size: 25px">
+                                                        {% if item.equipe_Recevante__result %}
+                                                            {{ item.equipe_Recevante__result }}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2"
+                                                     style="background-color: transparent;font-size: 20px;font-weight: bold">
+                                                    <div class="text-center">
+                                                        {% if item.heure %}
+                                                            {{ item.heure|time:"H:i" }}
+                                                            <img src="/static/img/stopwatch.png" alt=""
+                                                                 style="width: 25px;height: 25px">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-5 justify-content-center d-flex flex-column my-lg-4">
+                                                    <div class="text-center text-dark font-weight-bold">
+                                                        {{ item.equipe_Adverse__abreviation }}
+                                                    </div>
+                                                    <div class="d-flex justify-content-center my-1">
+                                                        <img src="/media/{{ item.equipe_Adverse__logo }}"
+                                                             alt="{{ item.equipe_Adverse__abreviation }}-logo">
+                                                    </div>
+                                                    <div class="text-center text-dark font-weight-bold mt-3"
+                                                         style="font-size: 25px">
+                                                        {% if item.equipe_Adverse__result %}
+                                                            {{ item.equipe_Adverse__result }}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Left and right controls -->
+                                {% if matches %}
+                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- NEWS -->
+                        <div class="col-12 mt-3">
+                            <div class="section-title"
+                                 {% if usedLang == 'ar' %}style="justify-content: space-between !important;" {% endif %}>
+                                <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_nouvelle"|getEquivalentLang:usedLang }}</h4>
+                                <a class="text-secondary font-weight-medium text-decoration-none"
+                                   href="#">{{ "id_voir_tou_news"|getEquivalentLang:usedLang }}</a>
+                            </div>
+                        </div>
+                        <div class="col-12 row">
+                            {% for news in latest_news %}
+                                {% if news.public_news %}
+                                    <div class="col-lg-6 p-2">
+                                        <div class="position-relative single-news">
+                                            <img class="img-fluid w-100 news-img" src="/media/{{ news.thumbnail }}"
+                                                 style="object-fit: cover;">
+                                            <div class="bg-white border-0 p-4">
+                                                <div class="mb-2 d-flex align-items-center justify-content-between">
+                                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
+                                                        كرة القدم
+                                                    </a>
+                                                    <a class="text-body">
+                                                        <small><i class="far fa-calendar-alt mr-1"></i>{{ news.date }}</small>
+                                                    </a>
+                                                </div>
+                                                <a class="h4 mb-3 text-secondary text-uppercase font-weight-bold elipsis-title"
+                                                   href="/news/{{ news.id }}" target="_blank">{{ news.title }}</a>
+                                                <p class="m-0 elipsis-description">{{ news.firstDescription }}</p>
+                                            </div>
+                                            <div class="d-flex justify-content-between bg-white border-0 px-4 pb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <small style="color: transparent">__________</small>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <small class="ml-3"><i class="far fa-eye mr-2"></i>0</small>
+                                                    <small class="ml-3"><i class="far fa-comment mr-2"></i>0</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- COL DROITE -->
+                <div class="col-lg-3">
+
+                    <!-- Videos -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
+                             style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_upload_video"|getEquivalentLang:usedLang }}</h4>
+                            <a class="text-secondary font-weight-medium text-decoration-none"
+                               href="/list_videos/">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                        <div class="bg-white border border-top-0 p-0" style="border-radius: 0 0 1rem 1rem;">
+                            <div class="owl-carousel main-carousel position-relative">
+                                {% for video in videos %}
+                                    <div>
+                                        <iframe
+                                                style="min-height: 300px;width: 100%;height: 100%; border-radius: 1rem;"
+                                                src="#"
+                                                title="LRGONF"
+                                                frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerpolicy="strict-origin-when-cross-origin"
+                                                allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ANNONCES -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
+                             style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_annonces"|getEquivalentLang:usedLang }}</h4>
+                            <a class="text-secondary font-weight-medium text-decoration-none"
+                               href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
+                            <ul class="list-group">
+                                {% for item in annonces %}
+                                    {% if item.public %}
+                                        <il class="{% if usedLang == 'ar' %}d-flex flex-row-reverse{% endif %}">
+                                            <strong class="text-dark">-</strong><span
+                                                style="color: transparent;">&#8209;</span>
+                                            <a style="color: #025bac; text-align:{% if usedLang == 'ar' %}right{% else %}left{% endif %}"
+                                               target="_blank"
+                                               href="/media/{{ item.pdf }}">{{ item.title }}</a>
+                                        </il>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PROGRAMME -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
+                             style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_programme"|getEquivalentLang:usedLang }}</h4>
+                            <a class="text-secondary font-weight-medium text-decoration-none"
+                               href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
+                            <ul class="list-group">
+                                {% for item in programme %}
+                                    {% if item.public %}
+                                        <il class="{% if usedLang == 'ar' %}d-flex flex-row-reverse{% endif %}">
+                                            <strong class="text-dark">-</strong><span
+                                                style="color: transparent;">&#8209;</span>
+                                            <a style="color: #025bac; text-align:{% if usedLang == 'ar' %}right{% else %}left{% endif %}"
+                                               target="_blank"
+                                               href="/media/{{ item.pdf }}">{{ item.title }}</a>
+                                        </il>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- News With Sidebar End -->
+
+{% endblock Content %}
+
+{% block Scripts %}
+    <script>
+        const default_saison = 40;
+        const default_competition = 1;
+        const default_pole = 2;
+        const default_groupe_division = 79;
+
+        const csrf_token = '{{ csrf_token }}'
+        const usedLang = '{{usedLang}}'
+
+        function showCustomAlert(the_text) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'تنبيه',
+                text: the_text,
+                confirmButtonText: 'حسنا',
+                confirmButtonColor: '#f39c12',
+                width: '300px'
+            });
+        }
+
+        function Remplir_match(journee_matches, equipes, the_results, sanction, journee_names) {
+            let grpd = document.getElementById("id_groupe_division").value
+            if (grpd === "")
+                grpd = default_groupe_division
+
+            let teamStats = {};
+            let firstKeyJournee = null;
+
+            const id_tabs_group_division_matchs = document.getElementById('id_tabs_group_division_matchs')
+            const id_group_division_matchs = document.getElementById('id_group_division_matchs')
+            document.querySelector("#spinner-content-div").classList.add('d-none');
+            let current_journee_setted = false
+
+            if (Object.keys(journee_matches).length > 0) {
+                Object.keys(journee_matches).forEach((key, index) => {
+                    const key_name = journee_names[key]
+                    const [key_journee, name_journee] = key_name.split("|");
+
+                    if (index === 0) {
+                        firstKeyJournee = key_journee;
+                    }
+                    const match_played = journee_matches[key];
+                    let tab_cl = document.createElement('button')
+                    tab_cl.classList = "match-result-tab"
+                    tab_cl.id = "match-result-tab-" + key_journee
+
+                    tab_cl.onclick = function (event) {
+                        showTabContent(event, key_journee);
+                    };
+                    tab_cl.innerHTML = String(name_journee)
+                    id_tabs_group_division_matchs.append(tab_cl)
+
+                    let pl_match = document.createElement('div')
+                    pl_match.classList = "match-result-tab-content"
+                    pl_match.id = String(key_journee)
+                    id_group_division_matchs.append(pl_match)
+
+                    let all_matchs_player = true
+                    let current_journee = false
+                    let nbt_matchs_player = 0
+                    match_played.forEach(element => {
+
+                        equipe_recevante = equipes.filter(item => String(item["id"]) === String(element.equipe_Recevante_id))[0];
+                        equipe_recevante_results = the_results.filter(item => String(item["match_id"]) === String(element.id)).map(item => item["equipe_Recevante_result"])[0];
+
+                        equipe_adverse_results = the_results.filter(item => String(item["match_id"]) === String(element.id)).map(item => item["equipe_Adverse_result"])[0];
+                        equipe_adverse = equipes.filter(item => String(item["id"]) === String(element.equipe_Adverse_id))[0];
+
+                        const equipe_recevante_result = the_results.find(item => String(item.match_id) === String(element.id))?.equipe_Recevante_result || 0;
+                        const equipe_adverse_result = the_results.find(item => String(item.match_id) === String(element.id))?.equipe_Adverse_result || 0;
+                        id_equipe_recevante = equipe_recevante.id
+                        id_equipe_adverse = equipe_adverse.id
+
+                        if (!teamStats[id_equipe_recevante]) {
+                            teamStats[id_equipe_recevante] = {
+                                matches: 0,
+                                wins: 0,
+                                defeats: 0,
+                                draws: 0,
+                                goalsScored: 0,
+                                goalsReceived: 0,
+                                points: 0
+                            };
+                        }
+                        if (!teamStats[id_equipe_adverse]) {
+                            teamStats[id_equipe_adverse] = {
+                                matches: 0,
+                                wins: 0,
+                                defeats: 0,
+                                draws: 0,
+                                goalsScored: 0,
+                                goalsReceived: 0,
+                                points: 0
+                            };
+                        }
+
+                        if (equipe_adverse_results>=0 && equipe_recevante_results>=0) {
+                            current_journee = true
+                            nbt_matchs_player += 1
+                            teamStats[id_equipe_recevante].matches += 1;
+                            teamStats[id_equipe_adverse].matches += 1;
+
+                            teamStats[id_equipe_recevante].goalsScored += parseInt(equipe_recevante_result);
+                            teamStats[id_equipe_recevante].goalsReceived += parseInt(equipe_adverse_result);
+                            teamStats[id_equipe_adverse].goalsScored += parseInt(equipe_adverse_result);
+                            teamStats[id_equipe_adverse].goalsReceived += parseInt(equipe_recevante_result);
+
+                            if (equipe_recevante_result > equipe_adverse_result) {
+                                teamStats[id_equipe_recevante].wins += 1;
+                                teamStats[id_equipe_recevante].points += 3;
+                                teamStats[id_equipe_adverse].defeats += 1;
+                            } else if (equipe_recevante_result < equipe_adverse_result) {
+                                teamStats[id_equipe_adverse].wins += 1;
+                                teamStats[id_equipe_adverse].points += 3;
+                                teamStats[id_equipe_recevante].defeats += 1;
+                            } else {
+                                teamStats[id_equipe_recevante].draws += 1;
+                                teamStats[id_equipe_adverse].draws += 1;
+                                teamStats[id_equipe_recevante].points += 1;
+                                teamStats[id_equipe_adverse].points += 1;
+                            }
+                        } else {
+                            all_matchs_player = false
+                        }
+
+                        matchDiv = document.createElement('form');
+                        matchDiv.id = 'formmatch-' + element.id;
+                        matchDiv.className = 'col-12 row';
+
+                        matchDiv.innerHTML = `
+                            <a target="_blank" href="/match/?m=${element.id}"
+                               class="col-12 row table-row m-0 p-0 d-flex justify-content-center link-hover">
+
+                                <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">
+                                    <img src="/media/${equipe_recevante.logo}" class="mctl" height="25">
+                                </div>
+                                <div class="col-3 text-center m-0 p-0 d-flex justify-content-center">
+                                    <strong style="${
+                                        equipe_recevante_results > equipe_adverse_results
+                                            ? 'color:var(--lr-primary) !important'
+                                            : equipe_recevante_results === equipe_adverse_results
+                                                ? (equipe_recevante_results>=0 ? 'color:var(--lr-accent) !important' : 'color:#111827 !important')
+                                                : 'color:#9CA3AF !important'
+                                    }">
+                                        ${equipe_recevante.abreviation}
+                                    </strong>
+                                </div>
+                                <div class="col-4 text-center m-0 p-0 d-flex justify-content-center">
+                                    <strong style="${
+                                        equipe_recevante_results > equipe_adverse_results
+                                            ? 'color:var(--lr-primary) !important'
+                                            : equipe_recevante_results === equipe_adverse_results
+                                                ? (equipe_recevante_results>=0 ? 'color:var(--lr-accent) !important' : 'color:#111827 !important')
+                                                : 'color:#9CA3AF !important'
+                                    }">
+                                        ${equipe_recevante_results>=0 ? ` ${equipe_recevante_results}` : ``}
+                                    </strong>
+                                    <span style="font-weight: bold !important; font-size: 14px; ${
+                                        equipe_recevante_results
+                                            ? 'color: #111827 !important;'
+                                            : (element.date ? 'color:#111827 !important;' : 'color:#DC2626 !important;')
+                                    }">
+                                        ${
+                                            equipe_recevante_results>=0
+                                                ? '&nbsp;-&nbsp; '
+                                                : `${element.date ? getDateOrtimeMatch(element.date, element.heure) : 'لم تبرمج بعد'}`
+                                        }
+                                    </span>
+                                    <strong style="${
+                                        equipe_recevante_results < equipe_adverse_results
+                                            ? 'color:var(--lr-primary) !important'
+                                            : equipe_recevante_results === equipe_adverse_results
+                                                ? (equipe_recevante_results>=0 ? 'color:var(--lr-accent) !important' : 'color:#111827 !important')
+                                                : 'color:#9CA3AF !important'
+                                    }">
+                                        ${equipe_adverse_results>=0 ? `${equipe_adverse_results}` : ``}
+                                    </strong>
+                                </div>
+                                <div class="col-3 text-center m-0 p-0 d-flex justify-content-center">
+                                    <strong style="${
+                                        equipe_recevante_results < equipe_adverse_results
+                                            ? 'color:var(--lr-primary) !important'
+                                            : equipe_recevante_results === equipe_adverse_results
+                                                ? (equipe_recevante_results ? 'color:var(--lr-accent) !important' : 'color:#111827 !important')
+                                                : 'color:#9CA3AF !important'
+                                    }">
+                                        ${equipe_adverse.abreviation}
+                                    </strong>
+                                </div>
+                                <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">
+                                    <img src="/media/${equipe_adverse.logo}" class="mctl" height="25">
+                                </div>
+                            </a>`;
+
+                        pl_match.appendChild(matchDiv);
+                        hr = document.createElement('hr');
+                        pl_match.appendChild(hr);
+
+                    })
+
+                    if (all_matchs_player && match_played.length > 0 && nbt_matchs_player === match_played.length) {
+                        tab_cl.classList.add('tabs-pass-journee')
+                    } else if (current_journee) {
+                        current_journee_setted = true
+                        tab_cl.classList.add('tabs-current-journee')
+                        tab_cl.classList.add("active");
+                        pl_match.classList.add("active");
+                    } else {
+                        if (!current_journee_setted) {
+                            tab_cl.classList.add('tabs-current-journee')
+                            tab_cl.classList.add("active");
+                            pl_match.classList.add("active");
+                            current_journee_setted = true
+                        }
+                    }
+
+                });
+
+                if (firstKeyJournee) {
+                    showTabContent({ target: document.getElementById('match-result-tab-' + firstKeyJournee) }, firstKeyJournee);
+                }
+
+                try {
+                    let curr_tabs = document.getElementsByClassName("tabs-current-journee")
+                    curr_tabs[0].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                } catch {}
+
+                if (sanction) {
+                    sanction.forEach((element, index) => {
+                        teamStats[element.equipe].points = Number(teamStats[element.equipe].points) - Number(element.sanction_points)
+                    })
+                }
+                document.getElementById('id_classement').innerHTML = '';
+
+                const sortedTeams = Object.entries(teamStats).sort(([, statsA], [, statsB]) => {
+                    if (statsB.points !== statsA.points) return statsB.points - statsA.points;
+                    if (statsB.wins !== statsA.wins) return statsB.wins - statsA.wins;
+                    const goalDiffA = statsA.goalsScored - statsA.goalsReceived;
+                    const goalDiffB = statsB.goalsScored - statsB.goalsReceived;
+                    return goalDiffB - goalDiffA;
+                });
+
+                const teamDivHeader = document.createElement('div');
+                teamDivHeader.className = 'col-12 row table-row m-0 p-0 d-flex justify-content-center';
+                teamDivHeader.innerHTML = `
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center"></div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center"></div>
+                    <div class="col-3 text-center m-0 p-0 d-flex justify-content-center"></div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">J</div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">V</div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">E</div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">D</div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">+</div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">-</div>
+                    <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">P</div>
+                `;
+                document.getElementById('id_classement').appendChild(teamDivHeader);
+
+                sortedTeams.forEach(([teamId, stats], index) => {
+                    const team = equipes.find(equipe => Number(equipe.id) === Number(teamId));
+                    let totalSanctionPoints = 0
+                    if (sanction) {
+                        totalSanctionPoints = sanction.filter(item => Number(item.equipe) === Number(teamId))
+                            .reduce((sum, item) => sum + item.sanction_points, 0);
+                    }
+
+                    const teamDiv = document.createElement('div');
+                    teamDiv.className = 'col-12 row table-row m-0 p-0 d-flex justify-content-center';
+
+                    teamDiv.innerHTML = `
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${index + 1}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">
+                            <img src="/media/${team.logo}" class="mctl"  height="25">
+                        </div>
+                        <div class="col-3 text-center m-0 p-0 d-flex justify-content-center">
+                            ${team.abreviation}
+                            <span class="mx-1 text-danger" style="font-weight: bold !important;">
+                                ${totalSanctionPoints ? "(-" + totalSanctionPoints + ")" : ""}
+                            </span>
+                        </div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${stats.matches}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${stats.wins}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${stats.draws}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${stats.defeats}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${stats.goalsScored}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">${stats.goalsReceived}</div>
+                        <div class="col-1 text-center m-0 p-0 d-flex justify-content-center">
+                            <a class="font-weight-bold mx-1" target="_blank" href="/print_points/${grpd}/${team.id}">
+                                ${stats.points}
+                            </a>
+                        </div>
+                    `;
+                    document.getElementById('id_classement').appendChild(teamDiv);
+                });
+            }
+        }
+
+        function filter_work() {
+            disableAll()
+            pol_select = document.getElementById('id_pole')
+            categorie_select = document.getElementById('id_categorie_pole')
+            division_select = document.getElementById('id_division')
+            competition_select = document.getElementById('id_competition')
+
+            fill_select_listener(pol_select, categorie_select, 'categorie_pole_data', 'pole_id', 'description_' + '{{usedLang}}')
+            fill_select_listener(categorie_select, division_select, 'division_data', 'categorie_pole_id', 'description_' + '{{usedLang}}',[competition_select])
+            fill_select_listener(competition_select, division_select, 'division_data', 'categorie_pole_id', 'description_' + '{{usedLang}}',[categorie_select])
+            groupe_division_select = document.getElementById('id_groupe_division')
+            saison_select = document.getElementById('id_saison')
+            fill_select_listener(saison_select, groupe_division_select, 'groupe_data', 'saison_id', 'description_' + '{{usedLang}}', [division_select])
+            fill_select_listener(division_select, groupe_division_select, 'groupe_data', 'division_id', 'description_' + '{{usedLang}}', [saison_select])
+
+            selectElement(competition_select, default_competition)
+            selectElement(saison_select, default_saison)
+            selectElement(pol_select, default_pole)
+
+            enableAll()
+        }
+
+        function getDateOrtimeMatch(targetDate, time) {
+            const today = new Date();
+            const todayFormatted = today.toISOString().split('T')[0];
+            if (targetDate === todayFormatted) {
+                return time.slice(0, 5)
+            } else {
+                return targetDate
+            }
+        }
+
+        function disableAll() {
+            const elements = document.querySelectorAll('button, input, select');
+            elements.forEach(element => {
+                element.disabled = true;
+            });
+        }
+
+        function enableAll() {
+            const elements = document.querySelectorAll('button, input, select');
+            elements.forEach(element => {
+                element.disabled = false;
+            });
+        }
+
+        function selectElement(selectElement, value) {
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (Number(selectElement.options[i].value) === value) {
+                    selectElement.selectedIndex = i;
+                    const event = new Event('change');
+                    selectElement.dispatchEvent(event);
+                    break;
+                }
+            }
+        }
+
+        function add_option_to_select(the_select, value, text, is_list) {
+            if (is_list === "id") {
+                selectElement(the_select, value)
+                return
+            }
+            if (is_list) {
+                text.forEach(element1 => {
+                    option = document.createElement('option');
+                    option.value = element1.id;
+                    option.text = element1[String(is_list)];
+                    the_select.add(option);
+                })
+                if (is_list === "intitule") {
+                    filteredEquipes = text
+                    document.getElementById("id_equipeAdverse").selectedIndex = 1;
+                }
+            } else {
+                option = document.createElement('option');
+                option.value = value;
+                option.text = text;
+                the_select.add(option);
+            }
+        }
+    </script>
+
+    <script>
+        function showTabContent(event, tabId) {
+            document.querySelectorAll('.match-result-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.match-result-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+    </script>
+{% endblock Scripts %}

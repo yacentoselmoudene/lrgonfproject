@@ -1,10 +1,12 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from .models import updateSitegeLangModel
 
 SUPPORTED_LANGS = ("fr", "en", "ar")
-
+usedLang = 'ar'
 
 def get_lang(request):
     lang = request.session.get("lang", "fr")
@@ -15,8 +17,10 @@ def get_lang(request):
 
 def home(request):
     lang = get_lang(request)
-    template_name = f"home_{lang}.html"
-    return render(request, template_name, {"lang": lang})
+    template_name = f"home.html"
+    #template_name = f"home_{lang}.html"
+    print(usedLang)
+    return render(request, template_name, {"usedLang": usedLang, })
 
 
 def switch_language(request):
@@ -26,3 +30,17 @@ def switch_language(request):
             request.session["lang"] = lang
     next_url = request.POST.get("next") or request.META.get("HTTP_REFERER") or reverse("home")
     return redirect(next_url)
+
+
+def updateSitegeLang(lang):
+    global usedLang
+    usedLang = lang
+
+def changeSitegeLang(request):
+    global usedLang
+    lang = request.POST.get('lang')
+    link = request.POST.get('link')
+    usedLang = str(lang)
+    updateSitegeLang(str(lang))
+    updateSitegeLangModel(str(lang))
+    return JsonResponse({'lang': usedLang})
