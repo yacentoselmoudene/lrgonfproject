@@ -1173,6 +1173,11 @@ Lang = {
   "id_suivi_delegue": "Delegate monitoring",
   "id_suivi_delsignation": "Coordinator monitoring",
   "id_homologation_pv": "Results approval",
+  "id_first_news": "Lancement de la nouvelle saison régionale",
+  "id_second_news": "Les talents U19 de Guelmim-Oued Noun à l’honneur",
+  "id_third_news": " Coup d’envoi du championnat régional de Futsal",
+  "id_forth_news": "Results approval",
+  "id_fifth_news": "Results approval",
 
   "id_commission": "Regional committees",
   "id_com_lois": "Laws, regulations & qualification committee",

@@ -236,450 +236,595 @@
             font-size: 0.85rem;
         }
     </style>
+
+        {{ block.super }}
+    <style>
+        .news-carousel .news-slide {
+            padding: 0.5rem;
+        }
+
+        .news-carousel .single-news {
+            border-radius: 1rem;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .news-carousel .single-news:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+        }
+
+        .news-carousel .news-img {
+            max-height: 210px !important;
+        }
+
+        .owl-carousel.news-carousel .owl-nav button.owl-prev,
+        .owl-carousel.news-carousel .owl-nav button.owl-next {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(11, 34, 54, 0.85);
+            color: #fff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .owl-carousel.news-carousel .owl-nav button.owl-prev {
+            left: -12px;
+        }
+
+        .owl-carousel.news-carousel .owl-nav button.owl-next {
+            right: -12px;
+        }
+
+        .owl-carousel.news-carousel .owl-nav button span {
+            font-size: 1.2rem;
+        }
+
+        .owl-carousel.news-carousel .owl-dots {
+            margin-top: 8px;
+        }
+    </style>
 {% endblock %}
 
 {% block Content %}
 
-    <!-- Main News Slider Start -->
-    <div class="container-fluid px-0 px-lg-5">
+<!-- HERO / SLIDER PRINCIPAL (statique) -->
+<div class="container-fluid px-0 px-lg-5">
+    <div class="row">
+        <div class="col-12 px-0">
+            <div class="owl-carousel main-carousel position-relative">
+
+                <!-- Slide 1 -->
+                <div class="position-relative overflow-hidden" style="height: 480px;">
+                    <img class="img-fluid h-100" src="/media/news/news11.jpg"
+                         style="object-fit: cover;">
+                    <div class="overlay d-flex flex-column justify-content-end">
+                        <div class="mb-2">
+                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
+                                FootBall
+                            </span>
+                            <span class="text-white">
+                                <small><i class="far fa-calendar-alt mr-1"></i> 15 Nov 2025</small>
+                            </span>
+                        </div>
+                        <h2 class="m-0 text-white text-uppercase font-weight-bold">
+                            {{ "id_first_news"|getEquivalentLang:usedLang }}
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="position-relative overflow-hidden" style="height: 480px;">
+                    <img class="img-fluid h-100" src="/media/news/news22.jpg"
+                         style="object-fit: cover;">
+                    <div class="overlay d-flex flex-column justify-content-end">
+                        <div class="mb-2">
+                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
+                                Jeunes
+                            </span>
+                            <span class="text-white">
+                                <small><i class="far fa-calendar-alt mr-1"></i> 10 Nov 2025</small>
+                            </span>
+                        </div>
+                        <h2 class="m-0 text-white text-uppercase font-weight-bold">
+                            {{ "id_second_news"|getEquivalentLang:usedLang }}
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="position-relative overflow-hidden" style="height: 480px;">
+                    <img class="img-fluid h-100" src="/media/news/news33.jpg"
+                         style="object-fit: cover;">
+                    <div class="overlay d-flex flex-column justify-content-end">
+                        <div class="mb-2">
+                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
+                                Futsal
+                            </span>
+                            <span class="text-white">
+                                <small><i class="far fa-calendar-alt mr-1"></i> 05 Nov 2025</small>
+                            </span>
+                        </div>
+                        <h2 class="m-0 text-white text-uppercase font-weight-bold">
+                            {{ "id_third_news"|getEquivalentLang:usedLang }}
+                        </h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main News Slider End -->
+
+
+<!-- Breaking News Start (statique) -->
+<div class="container-fluid mb-3 px-0 px-lg-5">
+    <div class="container breaking-wrapper">
+        <div class="row align-items-center">
+            <div class="col-12 d-flex flex-wrap align-items-center">
+                <!-- Label -->
+                <div class="d-none d-lg-block mr-3">
+                    <div class="breaking-label">
+                        <i class="fa-solid fa-bolt"></i>
+                        {{ "id_derni_nouve"|getEquivalentLang:usedLang }}
+                    </div>
+                </div>
+                <!-- Carrousel -->
+                <div class="col-lg-9 col-12 owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-lg-3"
+                     style="width: 100%; padding-right: 90px;">
+
+                    <div class="text-truncate">
+                        <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
+                           href="#">
+                            Assemblée générale de la ligue – 20/12/2025
+                        </a>
+                    </div>
+
+                    <div class="text-truncate">
+                        <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
+                           href="#">
+                            Ouverture des inscriptions licences saison 2025–2026
+                        </a>
+                    </div>
+
+                    <div class="text-truncate">
+                        <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
+                           href="#">
+                            Lancement du championnat féminin régional
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breaking News End -->
+
+
+<!-- News With Sidebar Start -->
+<div class="container-fluid px-0 px-lg-5">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-12 px-0">
-                <div class="owl-carousel main-carousel position-relative">
-                    {% for news in latest_news %}
-                        {% if news.public_slider %}
-                            <div class="position-relative overflow-hidden" style="height: 500px;">
-                                <img class="img-fluid h-100" src="/media/{{ news.thumbnail }}"
-                                     style="object-fit: cover;">
-                                <div class="overlay">
-                                    <div class="mb-2">
-                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
-                                            FootBall
-                                        </a>
-                                        <a class="text-white" href="">
-                                            <small><i class="far fa-calendar-alt mr-1"></i>{{ news.date }}</small>
-                                        </a>
-                                    </div>
-                                    <a class="h2 m-0 text-white text-uppercase font-weight-bold"
-                                       href="/news/{{ news.id }}">{{ news.title }}</a>
+            <!-- COL GAUCHE : Résultats & Classement (EXEMPLE STATIQUE) -->
+            <div class="col-lg-3">
+
+                <!-- Résultats récents (statique) -->
+                <div class="mb-3">
+                    <div class="section-title mb-0">
+                        <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_matches"|getEquivalentLang:usedLang }}</h4>
+                    </div>
+                    <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
+                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                            <span class="small text-muted">
+                                Seniors · Journée 8
+                            </span>
+                            <span class="badge badge-pill" style="background: #FDE8C5; color:#EB9337;">
+                                Terminé
+                            </span>
+                        </div>
+                        <div class="mb-2 p-2 rounded" style="background:#F9FAFB;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="{% static 'img/clubs/HGM.png' %}" alt="HGM" style="height:24px;" class="mr-2">
+                                    <span class="font-weight-bold">HGM</span>
+                                </div>
+                                <div class="font-weight-bold">2 - 1</div>
+                                <div class="d-flex align-items-center">
+                                    <span class="font-weight-bold mr-2">ATT</span>
+                                    <img src="{% static 'img/clubs/ATT.png' %}" alt="ATT" style="height:24px;">
                                 </div>
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Main News Slider End -->
-
-
-    <!-- Breaking News Start (NOUVELLE VERSION) -->
-    <div class="container-fluid mb-3 px-0 px-lg-5">
-        <div class="container breaking-wrapper">
-            <div class="row align-items-center">
-                <div class="col-12 d-flex flex-wrap align-items-center">
-                    <!-- Label -->
-                    <div class="d-none d-lg-block mr-3">
-                        <div class="breaking-label">
-                            <i class="fa-solid fa-bolt"></i>
-                            {{ "id_derni_nouve"|getEquivalentLang:usedLang }}
+                            <div class="small text-muted mt-1">
+                                Sam 20h · Stade Municipal Guelmim
+                            </div>
                         </div>
-                    </div>
-                    <!-- Carrousel -->
-                    <div class="col-lg-9 col-12 owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-lg-3"
-                         style="width: 100%; padding-right: 90px;">
 
-                        {% for item in annonces %}
-                            {% if item.public_breaknews %}
-                                <div class="text-truncate">
-                                    <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
-                                       href="/media/{{ item.pdf }}">
-                                        {{ item.title }}
-                                    </a>
+                        <div class="mb-2 p-2 rounded" style="background:#F9FAFB;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="{% static 'img/clubs/CBZ.png' %}" alt="CBZ" style="height:24px;" class="mr-2">
+                                    <span class="font-weight-bold">CBZ</span>
                                 </div>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% for item in programme %}
-                            {% if item.public_breaknews %}
-                                <div class="text-truncate">
-                                    <a target="_blank" class="text-white text-uppercase font-weight-semi-bold"
-                                       href="/media/{{ item.pdf }}">
-                                        {{ item.title }}
-                                    </a>
+                                <div class="font-weight-bold">0 - 0</div>
+                                <div class="d-flex align-items-center">
+                                    <span class="font-weight-bold mr-2">NSI</span>
+                                    <img src="{% static 'img/clubs/NSI.png' %}" alt="NSI" style="height:24px;">
                                 </div>
-                            {% endif %}
-                        {% endfor %}
+                            </div>
+                            <div class="small text-muted mt-1">
+                                Dim 16h · Tan-Tan
+                            </div>
+                        </div>
 
+                        <a href="#" class="small text-primary d-block mt-2 text-right">
+                            {{ "id_voir_tou"|getEquivalentLang:usedLang }}
+                        </a>
                     </div>
                 </div>
+
+                <!-- Classement (statique) -->
+                <div class="mb-3">
+                    <div class="section-title mb-0">
+                        <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_classements"|getEquivalentLang:usedLang }}</h4>
+                    </div>
+                    <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
+                        <table class="table table-sm mb-1">
+                            <thead>
+                            <tr class="small text-muted">
+                                <th>#</th>
+                                <th>Club</th>
+                                <th class="text-center">Pts</th>
+                                <th class="text-center">J</th>
+                            </tr>
+                            </thead>
+                            <tbody style="font-size:0.85rem;">
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <img src="{% static 'img/clubs/HGM.png' %}" style="height:20px;" class="mr-1">
+                                    HGM
+                                </td>
+                                <td class="text-center font-weight-bold">22</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <img src="{% static 'img/clubs/ATT.png' %}" style="height:20px;" class="mr-1">
+                                    ATT
+                                </td>
+                                <td class="text-center font-weight-bold">19</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <img src="{% static 'img/clubs/CBZ.png' %}" style="height:20px;" class="mr-1">
+                                    CBZ
+                                </td>
+                                <td class="text-center font-weight-bold">17</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                    <img src="{% static 'img/clubs/NSI.png' %}" style="height:20px;" class="mr-1">
+                                    NSI
+                                </td>
+                                <td class="text-center font-weight-bold">15</td>
+                                <td class="text-center">10</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <a href="#" class="small text-primary d-block mt-1 text-right">
+                            {{ "id_voir_tou"|getEquivalentLang:usedLang }}
+                        </a>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </div>
-    <!-- Breaking News End -->
 
-
-    <!-- News With Sidebar Start -->
-    <div class="container-fluid px-0 px-lg-5">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- COL GAUCHE -->
-                <div class="col-lg-3">
-
-                    <!-- Filters -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0" style="padding: 0px !important;">
-                            <button class="btn btn-tr col-12 text-left text-dark text-uppercase font-weight-bold"
-                                    type="button"
-                                    data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne"
-                                    style="padding: 12px 15px !important; background: var(--lr-primary-light); border-radius: 999px;">
-                                {{ "id_filtres"|getEquivalentLang:usedLang }}
-                            </button>
+            <!-- COL CENTRALE : Match vedette + News statiques -->
+            <div class="col-lg-6">
+                <div class="row">
+                    <!-- Match vedette (statique) -->
+                    <div class="col-12 mb-3">
+                        <div class="section-title m-0"
+                             {% if usedLang == 'ar' %}style="justify-content: space-between !important;" {% endif %}>
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_allMtch"|getEquivalentLang:usedLang }}</h4>
+                            <a class="text-secondary font-weight-medium text-decoration-none" href="#">
+                                {{ "id_voir_tou"|getEquivalentLang:usedLang }}
+                            </a>
                         </div>
-                        <div class="bg-white border border-top-0" style="border-radius: 0 0 1rem 1rem;">
-                            <div class="accordion" id="accordionExample">
-                                <div class="card" style="border: none !important;">
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                         data-parent="#accordionExample">
-                                        <div class="card-body">
+                    </div>
 
-                                            <div class="row mx-sm-2 my-2" style="justify-content:space-evenly">
-                                                <div class="col-12 my-2">
-                                                    <label for="{{ filters_form.saison.id_for_label }}">
-                                                        {{ filters_form.saison.id_for_label|getEquivalentLang:usedLang }}
-                                                    </label>
-                                                    {{ filters_form.saison }}
-                                                </div>
-                                                <div class="col-12 my-2">
-                                                    <label for="{{ filters_form.competition.id_for_label }}">
-                                                        {{ filters_form.competition.id_for_label|getEquivalentLang:usedLang }}
-                                                    </label>
-                                                    {{ filters_form.competition }}
-                                                </div>
-                                                <div class="col-12 my-2">
-                                                    <label for="{{ filters_form.pole.id_for_label }}">
-                                                        {{ filters_form.pole.id_for_label|getEquivalentLang:usedLang }}
-                                                    </label>
-                                                    {{ filters_form.pole }}
-                                                </div>
-                                                <div class="col-12 my-2">
-                                                    <label for="{{ filters_form.categorie_pole.id_for_label }}">
-                                                        {{ filters_form.categorie_pole.id_for_label|getEquivalentLang:usedLang }}
-                                                    </label>
-                                                    {{ filters_form.categorie_pole }}
-                                                </div>
-                                                <div class="col-12 my-2">
-                                                    <label for="{{ filters_form.division.id_for_label }}">
-                                                        {{ filters_form.division.id_for_label|getEquivalentLang:usedLang }}
-                                                    </label>
-                                                    {{ filters_form.division }}
-                                                </div>
-                                                <div class="col-12 my-2">
-                                                    <label for="{{ filters_form.groupe_division.id_for_label }}">
-                                                        {{ filters_form.groupe_division.id_for_label|getEquivalentLang:usedLang }}
-                                                    </label>
-                                                    {{ filters_form.groupe_division }}
-                                                </div>
+                    <div class="col-12 mb-4">
+                        <div class="row align-items-center box-lr"
+                             style="background-color: #ffffff; border-radius: 1rem; box-shadow: 0 10px 25px rgba(15,23,42,0.08); padding: 1.5rem;">
+                            <div class="col-5 justify-content-center d-flex flex-column">
+                                <div class="text-center text-dark font-weight-bold mb-1">
+                                    HGM
+                                </div>
+                                <div class="d-flex justify-content-center my-1">
+                                    <img src="{% static 'img/clubs/HGM.png' %}"
+                                         alt="HGM-logo"
+                                         style="border-radius: 999px;max-height: 60px;">
+                                </div>
+                                <div class="text-center text-dark font-weight-bold mt-3"
+                                     style="font-size: 26px">
+                                    2
+                                </div>
+                            </div>
 
-                                                <div class="col-12 my-2 d-flex justify-content-center">
-                                                    <button type="button" id="btn-search-match" class="btn btn-success btn-sm px-3"
-                                                            style="background: var(--lr-accent); border-color: var(--lr-accent);">
-                                                        <div class="text-content">
-                                                            Apply
-                                                        </div>
-                                                        <div class="spinner-content spinner-border text-light d-none"
-                                                             role="status">
-                                                            <span class="sr-only">Loading...</span>
-                                                        </div>
-                                                    </button>
-                                                </div>
-                                            </div>
+                            <div class="col-2 text-center">
+                                <div class="text-muted small mb-1">
+                                    Sam 20h
+                                </div>
+                                <div class="font-weight-bold" style="font-size: 18px;">VS</div>
+                                <div class="small text-muted mt-1">
+                                    Stade Municipal
+                                </div>
+                            </div>
 
+                            <div class="col-5 justify-content-center d-flex flex-column my-lg-4">
+                                <div class="text-center text-dark font-weight-bold mb-1">
+                                    ATT
+                                </div>
+                                <div class="d-flex justify-content-center my-1">
+                                    <img src="{% static 'img/clubs/ATT.png' %}"
+                                         alt="ATT-logo"
+                                         style="border-radius: 999px;max-height: 60px;">
+                                </div>
+                                <div class="text-center text-dark font-weight-bold mt-3"
+                                     style="font-size: 26px">
+                                    1
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEWS STATIQUES EN CARROUSEL -->
+                    <div class="col-12 mt-3">
+                        <div class="section-title"
+                             {% if usedLang == 'ar' %}style="justify-content: space-between !important;" {% endif %}>
+                            <h4 class="m-0 text-uppercase font-weight-bold">
+                                {{ "id_nouvelle"|getEquivalentLang:usedLang }}
+                            </h4>
+                            <a class="text-secondary font-weight-medium text-decoration-none"
+                               href="#">{{ "id_voir_tou_news"|getEquivalentLang:usedLang }}</a>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <div class="owl-carousel news-carousel">
+
+                            <!-- Slide 1 -->
+                            <div class="news-slide">
+                                <div class="position-relative single-news">
+                                    <img class="img-fluid w-100 news-img" src="{% static 'img/news/thumb1.jpg' %}"
+                                         style="object-fit: cover;">
+                                    <div class="bg-white border-0 p-3">
+                                        <div class="mb-2 d-flex align-items-center justify-content-between">
+                                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2">
+                                                Seniors
+                                            </span>
+                                            <span class="text-body">
+                                                <small><i class="far fa-calendar-alt mr-1"></i> 15 Nov 2025</small>
+                                            </span>
                                         </div>
+                                        <h5 class="mb-2 text-secondary text-uppercase font-weight-bold elipsis-title">
+                                            Résultats de la 8ème journée du championnat
+                                        </h5>
+                                        <p class="m-0 elipsis-description">
+                                            Retour sur les rencontres phares et les clubs en forme dans la région de Guelmim-Oued Noun.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-
-                        </div>
-                    </div>
-
-                    <div class='alert alert-warning text-center py-2 my-2'>
-                        {% if usedLang == 'ar' %}
-                            <strong>النتائج والترتيب قيد التجربة</strong> ⚠️
-                        {% else %}
-                            <strong>Résultats et Classement en phase de test.</strong> ⚠️
-                        {% endif %}
-                    </div>
-
-                    <!-- RÉSULTATS -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_matches"|getEquivalentLang:usedLang }}</h4>
-                        </div>
-                        <div class="bg-white border border-top-0" style="border-radius: 0 0 1rem 1rem;">
-
-                            <div class="match-result-tabs-container" id="id_tabs_group_division_matchs"></div>
-                            <div id="id_group_division_matchs"></div>
-
-                            <div id="spinner-content-div" class="justify-content-center align-items-center m-3"
-                                 style="display: flex">
-                                <div class="spinner-content spinner-border text-warning " role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <!-- CLASSEMENTS -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_classements"|getEquivalentLang:usedLang }}</h4>
-                        </div>
-                        <div class="bg-white border border-top-0 p-3" id="id_classement" style="border-radius: 0 0 1rem 1rem;">
-                            <div class="d-flex justify-content-center align-items-center " style="width: 100%">
-                                <div class="spinner-content spinner-border text-warning" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- COL CENTRALE -->
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title m-0"
-                                 {% if usedLang == 'ar' %}style="justify-content: space-between !important;" {% endif %}>
-                                <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_allMtch"|getEquivalentLang:usedLang }}</h4>
-                                <a class="text-secondary font-weight-medium text-decoration-none" target="_blank"
-                                   href="#">{{ "id_voir_tou"|getEquivalentLang:usedLang }}</a>
-                            </div>
-                        </div>
-                        <div class="col-12 row">
-
-                            {% if not matches %}
-                                <div class="col-12 d-flex justify-content-center"
-                                     style="background-color: #ffffffb8; border-radius: 10px !important;">
-                                    <span class="p-4 text-center">لم تبرمج أي مباراة لهذا اليوم</span>
-                                </div>
-                            {% endif %}
-
-                            <div id="demo" class="carousel slide col-12" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ul class="carousel-indicators">
-                                    {% for item in matches %}
-                                        <li data-target="#demo" data-slide-to="{{ forloop.counter }}"
-                                            class="{% if forloop.first %}active{% endif %}"></li>
-                                    {% endfor %}
-                                </ul>
-
-                                <!-- The slideshow -->
-                                <div class="carousel-inner">
-                                    {% for item in matches %}
-                                        <a href="/match/?m={{ item.id }}" target="_blank"
-                                           class="carousel-item link-hover {% if forloop.first %}active{% endif %}">
-                                            <div class="row align-items-center box-lr">
-                                                <div class="col-5 justify-content-center d-flex flex-column">
-                                                    <div class="text-center text-dark font-weight-bold">
-                                                        {{ item.equipe_Recevante__abreviation }}
-                                                    </div>
-                                                    <div class="d-flex justify-content-center my-1">
-                                                        <img src="/media/{{ item.equipe_Recevante__logo }}"
-                                                             alt="{{ item.equipe_Recevante__abreviation }}-logo">
-                                                    </div>
-                                                    <div class="text-center text-dark font-weight-bold mt-3"
-                                                         style="font-size: 25px">
-                                                        {% if item.equipe_Recevante__result %}
-                                                            {{ item.equipe_Recevante__result }}
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-2"
-                                                     style="background-color: transparent;font-size: 20px;font-weight: bold">
-                                                    <div class="text-center">
-                                                        {% if item.heure %}
-                                                            {{ item.heure|time:"H:i" }}
-                                                            <img src="/static/img/stopwatch.png" alt=""
-                                                                 style="width: 25px;height: 25px">
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-5 justify-content-center d-flex flex-column my-lg-4">
-                                                    <div class="text-center text-dark font-weight-bold">
-                                                        {{ item.equipe_Adverse__abreviation }}
-                                                    </div>
-                                                    <div class="d-flex justify-content-center my-1">
-                                                        <img src="/media/{{ item.equipe_Adverse__logo }}"
-                                                             alt="{{ item.equipe_Adverse__abreviation }}-logo">
-                                                    </div>
-                                                    <div class="text-center text-dark font-weight-bold mt-3"
-                                                         style="font-size: 25px">
-                                                        {% if item.equipe_Adverse__result %}
-                                                            {{ item.equipe_Adverse__result }}
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                </div>
-
-                                <!-- Left and right controls -->
-                                {% if matches %}
-                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                        <span class="carousel-control-prev-icon"></span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#demo" data-slide="next">
-                                        <span class="carousel-control-next-icon"></span>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <!-- NEWS -->
-                        <div class="col-12 mt-3">
-                            <div class="section-title"
-                                 {% if usedLang == 'ar' %}style="justify-content: space-between !important;" {% endif %}>
-                                <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_nouvelle"|getEquivalentLang:usedLang }}</h4>
-                                <a class="text-secondary font-weight-medium text-decoration-none"
-                                   href="#">{{ "id_voir_tou_news"|getEquivalentLang:usedLang }}</a>
-                            </div>
-                        </div>
-                        <div class="col-12 row">
-                            {% for news in latest_news %}
-                                {% if news.public_news %}
-                                    <div class="col-lg-6 p-2">
-                                        <div class="position-relative single-news">
-                                            <img class="img-fluid w-100 news-img" src="/media/{{ news.thumbnail }}"
-                                                 style="object-fit: cover;">
-                                            <div class="bg-white border-0 p-4">
-                                                <div class="mb-2 d-flex align-items-center justify-content-between">
-                                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">
-                                                        كرة القدم
-                                                    </a>
-                                                    <a class="text-body">
-                                                        <small><i class="far fa-calendar-alt mr-1"></i>{{ news.date }}</small>
-                                                    </a>
-                                                </div>
-                                                <a class="h4 mb-3 text-secondary text-uppercase font-weight-bold elipsis-title"
-                                                   href="/news/{{ news.id }}" target="_blank">{{ news.title }}</a>
-                                                <p class="m-0 elipsis-description">{{ news.firstDescription }}</p>
-                                            </div>
-                                            <div class="d-flex justify-content-between bg-white border-0 px-4 pb-3">
-                                                <div class="d-flex align-items-center">
-                                                    <small style="color: transparent">__________</small>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <small class="ml-3"><i class="far fa-eye mr-2"></i>0</small>
-                                                    <small class="ml-3"><i class="far fa-comment mr-2"></i>0</small>
-                                                </div>
-                                            </div>
+                            <!-- Slide 2 -->
+                            <div class="news-slide">
+                                <div class="position-relative single-news">
+                                    <img class="img-fluid w-100 news-img" src="{% static 'img/news/thumb2.jpg' %}"
+                                         style="object-fit: cover;">
+                                    <div class="bg-white border-0 p-3">
+                                        <div class="mb-2 d-flex align-items-center justify-content-between">
+                                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2">
+                                                Formation
+                                            </span>
+                                            <span class="text-body">
+                                                <small><i class="far fa-calendar-alt mr-1"></i> 12 Nov 2025</small>
+                                            </span>
                                         </div>
+                                        <h5 class="mb-2 text-secondary text-uppercase font-weight-bold elipsis-title">
+                                            Stage régional des arbitres et officiels
+                                        </h5>
+                                        <p class="m-0 elipsis-description">
+                                            Une session de formation dédiée aux arbitres pour améliorer la qualité de l’arbitrage régional.
+                                        </p>
                                     </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <!-- COL DROITE -->
-                <div class="col-lg-3">
-
-                    <!-- Videos -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
-                             style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
-                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_upload_video"|getEquivalentLang:usedLang }}</h4>
-                            <a class="text-secondary font-weight-medium text-decoration-none"
-                               href="/list_videos/">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
-                        </div>
-                        <div class="bg-white border border-top-0 p-0" style="border-radius: 0 0 1rem 1rem;">
-                            <div class="owl-carousel main-carousel position-relative">
-                                {% for video in videos %}
-                                    <div>
-                                        <iframe
-                                                style="min-height: 300px;width: 100%;height: 100%; border-radius: 1rem;"
-                                                src="#"
-                                                title="LRGONF"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin"
-                                                allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                {% endfor %}
+                                </div>
                             </div>
+
+                            <!-- Slide 3 -->
+                            <div class="news-slide">
+                                <div class="position-relative single-news">
+                                    <img class="img-fluid w-100 news-img" src="{% static 'img/news/thumb3.jpg' %}"
+                                         style="object-fit: cover;">
+                                    <div class="bg-white border-0 p-3">
+                                        <div class="mb-2 d-flex align-items-center justify-content-between">
+                                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2">
+                                                Féminin
+                                            </span>
+                                            <span class="text-body">
+                                                <small><i class="far fa-calendar-alt mr-1"></i> 10 Nov 2025</small>
+                                            </span>
+                                        </div>
+                                        <h5 class="mb-2 text-secondary text-uppercase font-weight-bold elipsis-title">
+                                            Lancement du championnat féminin régional
+                                        </h5>
+                                        <p class="m-0 elipsis-description">
+                                            Une nouvelle page pour le football féminin dans la région, avec des clubs motivés et ambitieux.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 4 -->
+                            <div class="news-slide">
+                                <div class="position-relative single-news">
+                                    <img class="img-fluid w-100 news-img" src="{% static 'img/news/thumb3.jpg' %}"
+                                         style="object-fit: cover;">
+                                    <div class="bg-white border-0 p-3">
+                                        <div class="mb-2 d-flex align-items-center justify-content-between">
+                                            <span class="badge badge-primary text-uppercase font-weight-semi-bold p-2">
+                                                Jeunes
+                                            </span>
+                                            <span class="text-body">
+                                                <small><i class="far fa-calendar-alt mr-1"></i> 08 Nov 2025</small>
+                                            </span>
+                                        </div>
+                                        <h5 class="mb-2 text-secondary text-uppercase font-weight-bold elipsis-title">
+                                            Tournoi U15 · Découverte des talents de demain
+                                        </h5>
+                                        <p class="m-0 elipsis-description">
+                                            Les jeunes catégories en lumière avec un tournoi dédié aux espoirs régionaux.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
-                    <!-- ANNONCES -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
-                             style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
-                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_annonces"|getEquivalentLang:usedLang }}</h4>
-                            <a class="text-secondary font-weight-medium text-decoration-none"
-                               href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
-                        </div>
-                        <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
-                            <ul class="list-group">
-                                {% for item in annonces %}
-                                    {% if item.public %}
-                                        <il class="{% if usedLang == 'ar' %}d-flex flex-row-reverse{% endif %}">
-                                            <strong class="text-dark">-</strong><span
-                                                style="color: transparent;">&#8209;</span>
-                                            <a style="color: #025bac; text-align:{% if usedLang == 'ar' %}right{% else %}left{% endif %}"
-                                               target="_blank"
-                                               href="/media/{{ item.pdf }}">{{ item.title }}</a>
-                                        </il>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- PROGRAMME -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
-                             style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
-                            <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_programme"|getEquivalentLang:usedLang }}</h4>
-                            <a class="text-secondary font-weight-medium text-decoration-none"
-                               href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
-                        </div>
-                        <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
-                            <ul class="list-group">
-                                {% for item in programme %}
-                                    {% if item.public %}
-                                        <il class="{% if usedLang == 'ar' %}d-flex flex-row-reverse{% endif %}">
-                                            <strong class="text-dark">-</strong><span
-                                                style="color: transparent;">&#8209;</span>
-                                            <a style="color: #025bac; text-align:{% if usedLang == 'ar' %}right{% else %}left{% endif %}"
-                                               target="_blank"
-                                               href="/media/{{ item.pdf }}">{{ item.title }}</a>
-                                        </il>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+
+            <!-- COL DROITE : Vidéo + Annonces / Programmes (statiques) -->
+            <div class="col-lg-3">
+
+                <!-- Videos (statique) -->
+                <div class="mb-3">
+                    <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
+                         style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
+                        <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_upload_video"|getEquivalentLang:usedLang }}</h4>
+                        <a class="text-secondary font-weight-medium text-decoration-none"
+                           href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="bg-white border border-top-0 p-0" style="border-radius: 0 0 1rem 1rem;">
+                        <div class="owl-carousel main-carousel position-relative">
+                            <div>
+                                <iframe
+                                        style="min-height: 260px;width: 100%;height: 100%; border-radius: 1rem;"
+                                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                        title="Video Ligue"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div>
+                                <iframe
+                                        style="min-height: 260px;width: 100%;height: 100%; border-radius: 1rem;"
+                                        src="https://www.youtube.com/embed/oHg5SJYRHA0"
+                                        title="Highlights"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANNONCES (statique) -->
+                <div class="mb-3">
+                    <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
+                         style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
+                        <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_annonces"|getEquivalentLang:usedLang }}</h4>
+                        <a class="text-secondary font-weight-medium text-decoration-none"
+                           href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
+                        <ul class="list-group">
+                            <li class="d-flex">
+                                <strong class="text-dark mr-2">-</strong>
+                                <a style="color: #025bac;" href="#" target="_blank">
+                                    Appel à candidatures pour les clubs participants à la Coupe Régionale
+                                </a>
+                            </li>
+                            <li class="d-flex mt-1">
+                                <strong class="text-dark mr-2">-</strong>
+                                <a style="color: #025bac;" href="#" target="_blank">
+                                    Mise à jour du règlement des compétitions saison 2025–2026
+                                </a>
+                            </li>
+                            <li class="d-flex mt-1">
+                                <strong class="text-dark mr-2">-</strong>
+                                <a style="color: #025bac;" href="#" target="_blank">
+                                    Ouverture des demandes d’accréditation médias
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PROGRAMME (statique) -->
+                <div class="mb-3">
+                    <div class="section-title mb-0 {% if usedLang == 'ar' %} d-flex flex-row-reverse{% endif %}"
+                         style="{% if usedLang == 'ar' %} justify-content: space-between !important; {% endif %}">
+                        <h4 class="m-0 text-uppercase font-weight-bold">{{ "id_programme"|getEquivalentLang:usedLang }}</h4>
+                        <a class="text-secondary font-weight-medium text-decoration-none"
+                           href="#">{{ "id_voir_tou_annonces"|getEquivalentLang:usedLang }}</a>
+                    </div>
+                    <div class="bg-white border border-top-0 p-3" style="border-radius: 0 0 1rem 1rem;">
+                        <ul class="list-group">
+                            <li class="d-flex">
+                                <strong class="text-dark mr-2">-</strong>
+                                <span style="color:#025bac;">
+                                    Journée 9 – Seniors · Samedi 20h · Stade Municipal Guelmim
+                                </span>
+                            </li>
+                            <li class="d-flex mt-1">
+                                <strong class="text-dark mr-2">-</strong>
+                                <span style="color:#025bac;">
+                                    U19 – Tournoi régional · Dimanche 16h · Centre Technique
+                                </span>
+                            </li>
+                            <li class="d-flex mt-1">
+                                <strong class="text-dark mr-2">-</strong>
+                                <span style="color:#025bac;">
+                                    Futsal – Demi-finales Coupe Régionale · Vendredi 19h
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
-    <!-- News With Sidebar End -->
+</div>
+<!-- News With Sidebar End -->
 
 {% endblock Content %}
 
+
+
 {% block Scripts %}
+        {{ block.super }}
     <script>
         const default_saison = 40;
         const default_competition = 1;
@@ -689,6 +834,30 @@
         const csrf_token = '{{ csrf_token }}'
         const usedLang = '{{usedLang}}'
 
+            $(document).ready(function () {
+            $('.news-carousel').owlCarousel({
+                loop: true,
+                margin: 16,
+                nav: true,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 4500,
+                autoplayHoverPause: true,
+                smartSpeed: 650,
+                stagePadding: 24,
+                rtl: {% if usedLang == 'ar' %}true{% else %}false{% endif %},
+                navText: [
+                    '<span>&lsaquo;</span>',
+                    '<span>&rsaquo;</span>'
+                ],
+                responsive: {
+                    0:   { items: 1 },
+                    576: { items: 1 },
+                    768: { items: 2 },
+                    1200:{ items: 3 }
+                }
+            });
+        });
         function showCustomAlert(the_text) {
             Swal.fire({
                 icon: 'warning',
