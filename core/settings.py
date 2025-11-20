@@ -73,7 +73,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lrsmfma_lrgonf',
-        'USER': 'lrsmfma_yacentos',
+        'USER': 'lrsmfma_centos',
         'PASSWORD': 'Bismillah@99',
         'HOST':'lrsmf.ma',
         'PORT':'3306',
