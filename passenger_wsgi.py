@@ -12,7 +12,7 @@ sys.path.insert(0, "/home/lrsmfma/lrgonfproject")
 # 👉 remplace "lrgonfproject" ci-dessous par le nom réel défini dans manage.py
 #    regarde dans manage.py la ligne :
 #    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'XXXX.settings')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lrgonfproject.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 
 # 3) Importer l'application WSGI Django
 from django.core.wsgi import get_wsgi_application
