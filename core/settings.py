@@ -70,9 +70,18 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # DB – adapte selon ton environnement
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lrsmfma_lrgonf',
+        'USER': 'lrsmfma_yacentos',
+        'PASSWORD': 'Bismillah@99',
+        'HOST':'lrsmf.ma',
+        'PORT':'3306',
+        "CONN_MAX_AGE": 120,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'use_unicode': True,
+        },
     }
 }
 
