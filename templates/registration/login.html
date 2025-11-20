@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion - Ligue Régionale GONF{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container d-flex justify-content-center">
+        <div class="card-lr" style="max-width: 420px; width: 100%;">
+            <h1 class="h5 mb-3 text-center section-title">Espace membre</h1>
+            <p class="small text-muted text-center mb-4">
+                Connectez-vous pour accéder aux espaces clubs, officiels et administration.
+            </p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger py-2 small">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <div class="mb-3">
+                    <label class="form-label small">Nom d’utilisateur</label>
+                    {{ form.username|add_class:"form-control form-control-sm" }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small">Mot de passe</label>
+                    {{ form.password|add_class:"form-control form-control-sm" }}
+                </div>
+                <button class="btn btn-lr-primary w-100 mt-2" type="submit">
+                    Se connecter
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

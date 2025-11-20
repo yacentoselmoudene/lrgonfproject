@@ -1,0 +1,374 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+     <meta charset="UTF-8">
+    <title>{% block title %}عصبة كلميم واد نون{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+        :root {
+            --lr-primary: #1E72B5;
+            --lr-primary-light: #D7EDFA;
+            --lr-accent: #EB9337;
+            --lr-soft: #FDE8C5;
+            --lr-white: #FFFFFF;
+            --lr-dark: #0B2236;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #D7EDFA, #ffffff);
+            color: var(--lr-dark);
+        }
+
+        .top-bar {
+            background: #ffffff;
+            border-bottom: 1px solid #e0e7f0;
+            font-size: 0.8rem;
+        }
+
+        .top-bar select {
+            font-size: 0.8rem;
+        }
+
+        .main-navbar {
+            background: linear-gradient(90deg, #1E72B5, #EB9337);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-title {
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            opacity: 0.85;
+        }
+
+        .nav-link-custom {
+            text-decoration: none;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .nav-link-custom::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.25rem;
+            width: 0;
+            height: 2px;
+            background: #FDE8C5;
+            transition: width 0.2s ease;
+        }
+
+        .nav-link-custom:hover {
+            color: #fff;
+        }
+
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+
+        .btn-pill-primary {
+            background: #ffffff;
+            color: #1E72B5;
+            border-radius: 999px;
+            padding: 0.35rem 1.1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+        }
+
+        .btn-pill-primary:hover {
+            background: #FDE8C5;
+            color: #1E72B5;
+        }
+
+        .hero-card {
+            border-radius: 1.5rem;
+            background: #ffffff;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+            padding: 1.6rem;
+        }
+
+        .section-card {
+            border-radius: 1.3rem;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding: 1.1rem 1.2rem;
+            height: 100%;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            color: #1E72B5;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            padding: 0.25rem 0.8rem;
+            border-radius: 999px;
+            background: #D7EDFA;
+            font-size: 0.75rem;
+            color: #1E72B5;
+            font-weight: 500;
+        }
+
+        .ticker {
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid #e0e7f0;
+        }
+
+        .ticker span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker 25s linear infinite;
+            font-size: 0.8rem;
+            color: #0B2236;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .club-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.4rem;
+        }
+
+        .sponsors-strip {
+            background: #FDE8C5;
+            margin-top: 2rem;
+        }
+
+        .sponsor-logo {
+            filter: grayscale(30%);
+            opacity: 0.9;
+            transition: all 0.2s ease;
+            max-height: 36px;
+        }
+
+        .sponsor-logo:hover {
+            filter: none;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #0B2236;
+            color: #ffffff;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #D7EDFA;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 767.98px) {
+            .brand-subtitle {
+                display: none;
+            }
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="top-bar py-1">
+        <div class="container-fluid px-3 px-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-globe"></i>
+                <form method="post" action="{% url 'switch_language' %}" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <select name="lang" class="form-select form-select-sm border-0" style="width:auto;" onchange="this.form.submit()">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                        <option value="ar" selected>العربية</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="#"><i class="fab fa-facebook-f text-primary"></i></a>
+                <a href="#"><i class="fab fa-x-twitter text-primary"></i></a>
+                <a href="#"><i class="fab fa-instagram text-primary"></i></a>
+                <a href="#"><i class="fab fa-youtube text-danger"></i></a>
+
+                {% if user.is_authenticated %}
+                    <span class="small me-2">مرحبا، {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-primary rounded-pill">
+                        <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-pill-primary ms-2">
+                        <i class="fa-regular fa-user"></i> فضاء المنخرطين
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="main-navbar py-2">
+        <div class="container-fluid px-3 px-md-5 d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+                <img src="{% static 'img/logo-ligue.png' %}" alt="عصبة" style="height:50px; object-fit:contain;">
+                <div class="d-flex flex-column text-white">
+                    <span class="brand-title">العصبة الجهوية كلميم واد نون</span>
+                    <small class="brand-subtitle">تحت إشراف الجامعة الملكية المغربية لكرة القدم</small>
+                </div>
+            </div>
+
+            <div class="d-none d-md-flex align-items-center gap-4">
+                <a href="{% url 'home' %}" class="nav-link-custom">الرئيسية</a>
+                <a href="#" class="nav-link-custom">المنافسات</a>
+                <a href="#" class="nav-link-custom">الأندية</a>
+                <a href="#" class="nav-link-custom">التحكيم</a>
+                <a href="#" class="nav-link-custom">الاتصال</a>
+            </div>
+
+            <button class="btn d-md-none text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- القائمة الجانبية للهاتف -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">القائمة</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-3">
+        <a href="{% url 'home' %}" class="nav-link">الرئيسية</a>
+        <a href="#" class="nav-link">المنافسات</a>
+        <a href="#" class="nav-link">الأندية</a>
+        <a href="#" class="nav-link">التحكيم</a>
+        <a href="#" class="nav-link">الاتصال</a>
+      </div>
+    </div>
+
+
+    <!-- Menu mobile -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-3">
+        <a href="{% url 'home' %}" class="nav-link">Accueil</a>
+        <a href="#" class="nav-link">Compétitions</a>
+        <a href="#" class="nav-link">Clubs</a>
+        <a href="#" class="nav-link">Arbitrage</a>
+        <a href="#" class="nav-link">Contact</a>
+      </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Sponsors -->
+    <section class="sponsors-strip py-3">
+        <div class="container-fluid px-3 px-md-5">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <span class="fw-semibold text-uppercase small text-muted">Partenaires officiels</span>
+                <div class="d-flex flex-wrap align-items-center gap-4">
+                    <img src="{% static 'img/sponsors/fifa.png' %}" class="sponsor-logo" alt="FIFA">
+                    <img src="{% static 'img/sponsors/frmf.png' %}" class="sponsor-logo" alt="FRMF">
+                    <img src="{% static 'img/sponsors/CAF.png' %}" class="sponsor-logo" alt="CAF">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+        <footer class="pt-4 pb-3 mt-3">
+        <div class="container-fluid px-3 px-md-5">
+            <div class="row g-4">
+                <div class="col-12 col-md-4">
+                    <h6 class="text-uppercase mb-3">العصبة الجهوية كلميم واد نون</h6>
+                    <p class="mb-2">
+                        بوابة الصحراء المغربية، تسهر على تطوير كرة القدم الجهوية
+                        وتثمين الثقافة الحسانية.
+                    </p>
+                </div>
+                <div class="col-6 col-md-4">
+                    <h6 class="text-uppercase mb-3">روابط مفيدة</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="#">حول العصبة</a></li>
+                        <li><a href="#">القوانين والأنظمة</a></li>
+                        <li><a href="#">وثائق رسمية</a></li>
+                        <li><a href="#">الاتصال والشكايات</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4">
+                    <h6 class="text-uppercase mb-3">معلومات الاتصال</h6>
+                    <p class="mb-1"><i class="fa-solid fa-location-dot me-2"></i>مقر العصبة، جهة كلميم واد نون</p>
+                    <p class="mb-1"><i class="fa-solid fa-phone me-2"></i>+212 5XX XX XX XX</p>
+                    <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>contact@lrgonf.ma</p>
+                    <p class="mb-0">
+                        <i class="fa-solid fa-map me-2"></i>الإحداثيات: 28.988, -10.057
+                    </p>
+                </div>
+            </div>
+
+            <hr class="border-light mt-4">
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+                <span class="small">© {% now "Y" %} العصبة الجهوية كلميم واد نون. جميع الحقوق محفوظة.</span>
+                <span class="small">
+                    تصميم وتطوير :
+                    <a href="https://kmt-devs.com" target="_blank">KMT Devs</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>
