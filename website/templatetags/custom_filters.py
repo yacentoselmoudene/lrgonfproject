@@ -14,6 +14,10 @@ def get_item(dictionary, key):
     if isinstance(dictionary, dict):
         return dictionary.get(key)
     return None
+
+@register.filter
+def add_class(field, css):
+    return field.as_widget(attrs={"class": css})
 """
                 the_description = 'description_'+'{{usedLang}}';
                 option.text = element[the_description];
@@ -227,6 +231,7 @@ register.filter('checkAccess', checkAccess)
 register.filter('isProgrammeur', delgue_or_programmeur)
 register.filter('checkTeamConvFull', checkTeamConvFull)
 register.filter('checkTeamConvRempFull', checkTeamConvRempFull)
+register.filter('add_class', add_class)
 
 Lang = {
     "ar": {

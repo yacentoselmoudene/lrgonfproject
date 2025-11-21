@@ -1,35 +1,204 @@
 {% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
 
-{% block title %}Connexion - Ligue Régionale GONF{% endblock %}
+{% block Title %}
+    <title>Connexion - Ligue Régionale GONF</title>
+{% endblock Title %}
 
-{% block content %}
-<section class="py-5">
-    <div class="container d-flex justify-content-center">
-        <div class="card-lr" style="max-width: 420px; width: 100%;">
-            <h1 class="h5 mb-3 text-center section-title">Espace membre</h1>
-            <p class="small text-muted text-center mb-4">
-                Connectez-vous pour accéder aux espaces clubs, officiels et administration.
-            </p>
-            <form method="post" novalidate>
-                {% csrf_token %}
-                {% if form.non_field_errors %}
-                    <div class="alert alert-danger py-2 small">
-                        {{ form.non_field_errors }}
+{% block Styles %}
+    {{ block.super }}
+    <style>
+        /* Wrapper pour centrer le bloc de login entre header et footer */
+        .auth-wrapper {
+            min-height: calc(100vh - 260px); /* ajuste si besoin en fonction de la hauteur de ton header/footer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #ffffff;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+        }
+
+        .auth-card::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at top left, rgba(30,114,181,0.18), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(235,147,55,0.15), transparent 55%);
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        .auth-logo-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem auto;
+        }
+
+        .auth-logo-circle img {
+            max-width: 42px;
+            max-height: 42px;
+        }
+
+        .auth-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0B2236;
+        }
+
+        .auth-subtitle {
+            font-size: 0.86rem;
+            color: #6B7280;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-control,
+        .form-control:focus {
+            border-radius: 999px;
+            font-size: 0.85rem;
+            box-shadow: none;
+        }
+
+        .btn-lr-primary {
+            border-radius: 999px;
+            font-weight: 600;
+            background: #1E72B5;
+            border-color: #1E72B5;
+            font-size: 0.9rem;
+        }
+
+        .btn-lr-primary:hover {
+            background: #15598f;
+            border-color: #15598f;
+        }
+
+        .auth-extra {
+            font-size: 0.8rem;
+            color: #6B7280;
+        }
+
+        .auth-extra a {
+            color: #1E72B5;
+            text-decoration: none;
+        }
+
+        .auth-extra a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+{% endblock Styles %}
+
+{% block Content %}
+<section class="auth-wrapper py-4 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-10 col-md-8 col-lg-5 col-xl-4">
+                <div class="auth-card p-4 p-md-5">
+
+                    <!-- Logo + titre -->
+                    <div class="text-center mb-3">
+                        <div class="auth-logo-circle">
+                            <img src="{% static 'img/logo-ligue.png' %}" alt="LRGONF">
+                        </div>
+                        <h1 class="auth-title mb-1">
+                            Espace membre
+                        </h1>
+                        <p class="auth-subtitle mb-0">
+                            Connectez-vous pour accéder aux espaces clubs, officiels et administration.
+                        </p>
                     </div>
-                {% endif %}
-                <div class="mb-3">
-                    <label class="form-label small">Nom d’utilisateur</label>
-                    {{ form.username|add_class:"form-control form-control-sm" }}
+
+                    <!-- Messages "non_field_errors" -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger py-2 small mb-3">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label class="form-label" for="{{ form.username.id_for_label }}">
+                                Nom d’utilisateur
+                            </label>
+                            <input
+                                type="text"
+                                name="{{ form.username.html_name }}"
+                                id="{{ form.username.id_for_label }}"
+                                value="{{ form.username.value|default_if_none:'' }}"
+                                class="form-control form-control-sm {% if form.username.errors %}is-invalid{% endif %}"
+                                autocomplete="username"
+                                required
+                            >
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.username.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-2">
+                            <label class="form-label" for="{{ form.password.id_for_label }}">
+                                Mot de passe
+                            </label>
+                            <input
+                                type="password"
+                                name="{{ form.password.html_name }}"
+                                id="{{ form.password.id_for_label }}"
+                                class="form-control form-control-sm {% if form.password.errors %}is-invalid{% endif %}"
+                                autocomplete="current-password"
+                                required
+                            >
+                            {% if form.password.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.password.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Petit lien "mot de passe oublié" si tu veux -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <a href="#" class="auth-extra">Mot de passe oublié ?</a>
+                        </div>
+
+                        <!-- Bouton -->
+                        <button class="btn btn-lr-primary w-100 mt-1" type="submit">
+                            Se connecter
+                        </button>
+                    </form>
+
+                    <!-- Bas de carte -->
+                    <div class="text-center mt-3 auth-extra">
+                        Vous n’avez pas encore de compte ?
+                        <span class="d-block d-sm-inline">
+                            Contactez l’administration de la ligue.
+                        </span>
+                    </div>
+
                 </div>
-                <div class="mb-3">
-                    <label class="form-label small">Mot de passe</label>
-                    {{ form.password|add_class:"form-control form-control-sm" }}
-                </div>
-                <button class="btn btn-lr-primary w-100 mt-2" type="submit">
-                    Se connecter
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 </section>
-{% endblock %}
+{% endblock Content %}

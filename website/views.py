@@ -8,6 +8,17 @@ from .models import updateSitegeLangModel
 SUPPORTED_LANGS = ("fr", "en", "ar")
 usedLang = 'ar'
 
+from django.contrib.auth.views import LoginView
+
+class CustomLoginView(LoginView):
+    template_name = "registration/login.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["usedLang"] = self.request.GET.get("lang", "fr")  # default: fr
+        return context
+
+
 def get_lang(request):
     lang = request.session.get("lang", "fr")
     if lang not in SUPPORTED_LANGS:
