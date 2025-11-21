@@ -620,8 +620,15 @@ Lang = {
 "id_rib_bancaire": "وثيقة رقم الحساب البنك",
 "id_alert_files": "إذا كنتم أضفتم صورا  ملفات من OneDrive أو Google Drive فالمرجو تحميلها على هاتفكم أو حاسوبكم أولا قبل اضافتها هنا",
 
+        "id_FIRST_NEWS": "انطلاق الموسم الجديد",
+        "id_second_news": "مواهب فئة أقل من 19 سنة بجهة كلميم واد نون في الواجهة",
+        "id_third_news": "إعطاء انطلاقة البطولة الجهوية لكرة القدم داخل القاعة"
+
     },
     "fr": {
+        "id_FIRST_NEWS": "Lancement de la nouvelle saison régionale",
+        "id_second_news": "Les talents U19 de Guelmim-Oued Noun à l’honneur",
+        "id_third_news": " Coup d’envoi du championnat régional de Futsal",
 "id_check_invalid_input": "Des Champs sont vides!!",
 "id_frais_rapport": "Rapport Frais",
 "id_check_invalid_email": "Merci de vérifier l'Email Saisi",
@@ -1173,7 +1180,7 @@ Lang = {
   "id_suivi_delegue": "Delegate monitoring",
   "id_suivi_delsignation": "Coordinator monitoring",
   "id_homologation_pv": "Results approval",
-  "id_first_news": "Lancement de la nouvelle saison régionale",
+  "ID_FIRST_NEWS": "Lancement de la nouvelle saison régionale",
   "id_second_news": "Les talents U19 de Guelmim-Oued Noun à l’honneur",
   "id_third_news": " Coup d’envoi du championnat régional de Futsal",
   "id_forth_news": "Results approval",
