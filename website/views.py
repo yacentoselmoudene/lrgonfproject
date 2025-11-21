@@ -19,8 +19,9 @@ def home(request):
     lang = get_lang(request)
     template_name = f"home.html"
     #template_name = f"home_{lang}.html"
+    latest_news = [{"id":1, "title":"Bienvenue sur notre site", "content":"Ceci est la page d'accueil."}]
     print(usedLang)
-    return render(request, template_name, {"usedLang": usedLang, })
+    return render(request, template_name, {"usedLang": usedLang, "news":latest_news})
 
 
 def switch_language(request):
